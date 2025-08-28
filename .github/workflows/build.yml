@@ -2,7 +2,23 @@ name: ZMK Firmware Build
 
 on:
   pull_request:
+    paths:
+      - "config/**"
+      - "build.yaml"
+      - "Justfile"
+      - "flake.nix"
+      - "flake.lock"
+      - "config/west.yml"
+      - ".github/workflows/build.yml"
   push:
+    paths:
+      - "config/**"
+      - "build.yaml"
+      - "Justfile"
+      - "flake.nix"
+      - "flake.lock"
+      - "config/west.yml"
+      - ".github/workflows/build.yml"
   workflow_dispatch:
 
 permissions:
