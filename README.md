@@ -34,21 +34,10 @@ with keymap-drawer.
 Generated diagrams (via `just draw`) for the keyboards currently configured in
 this repo:
 
-### Cheapino v2
-
-[Cheapino v2](https://github.com/tompi/cheapino) (nice_nano_v2 shield). Current
-ZMK keymap diagram:
-
-<img src="keymap-drawer/cheapinov2.svg" width="400" alt="Cheapino v2 keymap">
-
-### Ergonaut One
-
-[Ergonaut One](https://github.com/ergonautkb/one) (seeeduino_xiao_ble shield;
-left/right halves). Current ZMK keymap diagram:
-
-<img src="keymap-drawer/ergonaut_one.svg" width="400" alt="Ergonaut One keymap">
-
-<a name="features"></a>
+| Keyboard                                              | Description                                   | Keymap Diagram                                                                                                                 |
+| ----------------------------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| **[Cheapino v2](https://github.com/tompi/cheapino)**  | nice_nano_v2 shield                           | <a href="keymap-drawer/cheapinov2.svg"><img src="keymap-drawer/cheapinov2.svg" height="100" alt="Cheapino v2 keymap"></a>      |
+| **[Ergonaut One](https://github.com/ergonautkb/one)** | seeeduino_xiao_ble shield (left/right halves) | <a href="keymap-drawer/ergonaut_one.svg"><img src="keymap-drawer/ergonaut_one.svg" height="100" alt="Ergonaut One keymap"></a> |
 
 ## 🛠️ Features
 
@@ -259,9 +248,9 @@ This project is licensed under the Apache License 2.0. See the
 
 Note on third‑party code & packages:
 
-- Nix flakes in `inputs` (e.g. `nixpkgs`) and
-  any packages you build or distribute through this configuration are covered by
-  their own upstream licenses.
+- Nix flakes in `inputs` (e.g. `nixpkgs`) and any packages you build or
+  distribute through this configuration are covered by their own upstream
+  licenses.
 - Refer to `nixpkgs` package metadata (`meta.license`) or upstream project
   repositories for details before redistributing binaries.
 - Nothing in this repository alters or supersedes those third‑party licenses;
@@ -274,4 +263,6 @@ unless explicitly stated otherwise.
 
 _Made with ❤️ for mechanical keyboards_
 
-*Special thanks to [Urob](https://github.com/urob) and [zmk-helpers](https://github.com/urob/zmk-helpers) for inspiration and amazing ZMK modules.*
+_Special thanks to [Urob](https://github.com/urob) and
+[zmk-helpers](https://github.com/urob/zmk-helpers) for inspiration and amazing
+ZMK modules._
