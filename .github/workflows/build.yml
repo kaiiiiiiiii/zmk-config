@@ -1,0 +1,74 @@
+name: ZMK Firmware Build
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  build-and-draw:
+    runs-on: self-hosted
+    env:
+      # Ensure the GitHub token provided to Actions is available to Nix fetchers.
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v30
+
+      - name: Cache west workspace
+        uses: actions/cache@v4
+        with:
+          path: |
+            .west
+            zmk
+            zephyr
+          key:
+            west-workspace-${{ hashFiles('config/west.yml') }}-${{
+            hashFiles('flake.lock') }}-${{ github.run_number }}
+          restore-keys: |
+            west-workspace-${{ hashFiles('config/west.yml') }}-${{ hashFiles('flake.lock') }}-
+            west-workspace-${{ hashFiles('config/west.yml') }}-
+            west-workspace-
+
+      - name: Initialize ZMK workspace (if needed)
+        run: |
+          if [ ! -d ".west" ] || [ ! -d "zmk" ]; then
+            echo "Initializing workspace from scratch..."
+            nix develop --command bash -lc 'just init'
+          else
+            echo "Workspace found in cache, updating repositories..."
+            nix develop --command bash -lc 'west update --fetch-opt=--filter=blob:none && west zephyr-export'
+          fi
+
+      - name: Build firmware
+        run: nix develop --command bash -lc 'just build all -p'
+
+      - name: Generate keymap drawings
+        run: nix develop --command bash -lc 'just draw all'
+
+      - name: Commit keymap drawings
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add keymap-drawer/
+          if ! git diff --cached --quiet; then
+            git commit -m "Update keymap drawings [skip ci]"
+            git push
+          else
+            echo "No changes to keymap drawings"
+          fi
+
+      - name: Upload firmware artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: zmk-firmware-${{ github.run_number }}
+          path: firmware/
+          retention-days: 30

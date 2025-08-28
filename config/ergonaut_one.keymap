@@ -1,0 +1,53 @@
+#define CONFIG_WIRELESS
+
+#include "zmk-helpers/key-labels/42.h"
+#include "base.keymap"
+
+ZMK_LAYER(WIN_BASE,
+    &kp EQUAL       WIN_BASE_LT  WIN_BASE_RT    &kp MINUS
+    &kp LBKT        WIN_BASE_LM  WIN_BASE_RM    &kp RBKT
+    &pipe_morph     WIN_BASE_LB  WIN_BASE_RB    &quote_morph
+    WIN_BASE_LH          WIN_BASE_RH
+)
+
+ZMK_LAYER(MAC_BASE,
+    &kp EQUAL       MAC_BASE_LT  MAC_BASE_RT    &kp MINUS
+    &kp LBKT        MAC_BASE_LM  MAC_BASE_RM    &kp RBKT
+    &pipe_morph     MAC_BASE_LB  MAC_BASE_RB    &quote_morph
+    MAC_BASE_LH     MAC_BASE_RH
+)
+
+ZMK_LAYER(WIN_NAV,
+    XXX     WIN_NAV_LT  WIN_NAV_RT    XXX
+    XXX     WIN_NAV_LM  WIN_NAV_RM    XXX
+    XXX     WIN_NAV_LB  WIN_NAV_RB    XXX
+    WIN_NAV_LH  WIN_NAV_RH
+)
+
+ZMK_LAYER(MAC_NAV,
+    XXX     MAC_NAV_LT  MAC_NAV_RT    XXX
+    XXX     MAC_NAV_LM  MAC_NAV_RM    XXX
+    XXX     MAC_NAV_LB  MAC_NAV_RB    XXX
+    MAC_NAV_LH  MAC_NAV_RH
+)
+
+ZMK_LAYER(WIN_NUM,
+    &kp EQUAL   WIN_NUM_LT  WIN_NUM_RT    &kp MINUS
+    XXX         WIN_NUM_LM  WIN_NUM_RM    XXX
+    &kp F1      WIN_NUM_LB  WIN_NUM_RB    &kp F12
+    WIN_NUM_LH  WIN_NUM_RH
+)
+
+ZMK_LAYER(MAC_NUM,
+    &kp EQUAL   MAC_NUM_LT  MAC_NUM_RT    &kp MINUS
+    XXX         MAC_NUM_LM  MAC_NUM_RM    XXX
+    &kp F1      MAC_NUM_LB  MAC_NUM_RB    &kp F12
+    MAC_NUM_LH  MAC_NUM_RH
+)
+
+ZMK_LAYER(SYS,
+    &bootloader     &studio_unlock  XXX XXX XXX XXX XXX XXX XXX XXX &studio_unlock  &bootloader
+    &none           SYS_LM  SYS_RM  &none
+    &sys_reset      XXX     XXX     XXX XXX &tog MAC_BASE  &tog MAC_BASE  XXX XXX XXX XXX &sys_reset
+    SYS_LH          SYS_RH
+)

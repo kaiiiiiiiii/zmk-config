@@ -1,0 +1,9 @@
+file_format: "1"
+id: cheapinov2
+name: Cheapino v2
+type: shield
+url: https://github.com/tompi/cheapino
+requires: [nice_nano_v2]
+features:
+  - keys
+  - studio

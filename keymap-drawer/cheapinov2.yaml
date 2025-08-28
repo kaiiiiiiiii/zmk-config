@@ -1,0 +1,262 @@
+layout: {zmk_keyboard: cheapinov2}
+layers:
+  Base (Windows):
+  - Q
+  - W
+  - E
+  - R
+  - T
+  - Y
+  - U
+  - I
+  - O
+  - P
+  - {t: A, h: Gui}
+  - {t: S, h: Alt}
+  - {t: D, h: Ctrl}
+  - {t: F, h: Shift}
+  - G
+  - H
+  - {t: J, h: Shift}
+  - {t: K, h: Ctrl}
+  - {t: L, h: Alt}
+  - {t: ;, h: Gui}
+  - Z
+  - X
+  - C
+  - V
+  - B
+  - N
+  - M
+  - {t: ',', s: <}
+  - {t: ., h: Sentence}
+  - {t: '?', s: /}
+  - {t: Esc, h: Navigation (Windows)}
+  - {t: Bspc, h: Ctl+Bspc}
+  - {t: Del, h: Ctl+Del}
+  - ENTER
+  - Spc
+  - {t: Tab, h: Number (Windows)}
+  Base (Mac):
+  - Q
+  - W
+  - E
+  - R
+  - T
+  - Y
+  - U
+  - I
+  - O
+  - P
+  - {t: A, h: Ctrl}
+  - {t: S, h: Alt}
+  - {t: D, h: Gui}
+  - {t: F, h: Shift}
+  - G
+  - H
+  - {t: J, h: Shift}
+  - {t: K, h: Ctrl}
+  - {t: L, h: Alt}
+  - {t: ;, h: Gui}
+  - Z
+  - X
+  - C
+  - V
+  - B
+  - N
+  - M
+  - {t: ',', s: <}
+  - {t: ., h: Sentence}
+  - {t: '?', s: /}
+  - {t: Esc, h: Navigation (Mac)}
+  - {t: Bspc, h: Ctl+Bspc}
+  - {t: Del, h: Alt+Del}
+  - ENTER
+  - Spc
+  - {t: Tab, h: Number (Mac)}
+  Navigation (Windows):
+  - ''
+  - ''
+  - ''
+  - ''
+  - $$mdi:volume-high$$
+  - PgUp
+  - ''
+  - {t: ↑, h: PgUp}
+  - ''
+  - PSCRN
+  - Gui
+  - Alt
+  - Ctrl
+  - Shift
+  - $$mdi:volume-off$$
+  - PgDn
+  - {t: ←, h: Home}
+  - {t: ↓, h: PgDn}
+  - {t: →, h: End}
+  - Ins
+  - ''
+  - ''
+  - ''
+  - ''
+  - $$mdi:volume-medium$$
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - {type: held}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  Navigation (Mac):
+  - ''
+  - ''
+  - ''
+  - ''
+  - $$mdi:volume-high$$
+  - PgUp
+  - ''
+  - {t: ↑, h: PgUp}
+  - ''
+  - PSCRN
+  - Ctrl
+  - Alt
+  - Gui
+  - Shift
+  - $$mdi:volume-off$$
+  - PgDn
+  - {t: ←, h: Home}
+  - {t: ↓, h: PgDn}
+  - {t: →, h: End}
+  - Ins
+  - ''
+  - ''
+  - ''
+  - ''
+  - $$mdi:volume-medium$$
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - {type: held}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  Number (Windows):
+  - '!'
+  - '@'
+  - '#'
+  - $
+  - '%'
+  - ^
+  - '&'
+  - '*'
+  - (
+  - )
+  - {t: '1', h: Gui}
+  - {t: '2', h: Alt}
+  - {t: '3', h: Ctrl}
+  - {t: '4', h: Shift}
+  - '5'
+  - '6'
+  - {t: '7', h: Shift}
+  - {t: '8', h: Ctrl}
+  - {t: '9', h: Alt}
+  - {t: '0', h: Gui}
+  - F2
+  - F3
+  - F4
+  - F5
+  - F6
+  - F7
+  - F8
+  - F9
+  - F10
+  - F11
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: held}
+  Number (Mac):
+  - '!'
+  - '@'
+  - '#'
+  - $
+  - '%'
+  - ^
+  - '&'
+  - '*'
+  - (
+  - )
+  - {t: '1', h: Ctrl}
+  - {t: '2', h: Alt}
+  - {t: '3', h: Gui}
+  - {t: '4', h: Shift}
+  - '5'
+  - '6'
+  - {t: '7', h: Shift}
+  - {t: '8', h: Gui}
+  - {t: '9', h: Alt}
+  - {t: '0', h: Ctrl}
+  - F2
+  - F3
+  - F4
+  - F5
+  - F6
+  - F7
+  - F8
+  - F9
+  - F10
+  - F11
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: held}
+  System:
+  - Boot
+  - Studio Unlock
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - Studio Unlock
+  - Boot
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - Reset
+  - ''
+  - ''
+  - ''
+  - Switch OS
+  - Switch OS
+  - ''
+  - ''
+  - ''
+  - Reset
+  - {type: held}
+  - ''
+  - ''
+  - ''
+  - ''
+  - {type: held}
+  Combos: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']

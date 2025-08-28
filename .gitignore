@@ -1,0 +1,10 @@
+.DS_Store
+.build
+.direnv
+.west
+modules
+firmware
+zephyr
+zmk
+draw/base.yaml
+ergonautkb-zmk-module

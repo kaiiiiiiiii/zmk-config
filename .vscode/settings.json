@@ -1,0 +1,17 @@
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    ".west": true,
+    ".direnv": true,
+    ".build": true,
+    "zephyr": true,
+    "zmk": true,
+    "modules": true,
+    "ergonautkb-zmk-module": true
+  },
+  "explorerExclude.backup": {}
+}
