@@ -105,15 +105,20 @@ MASK_MODS(masked_end,  (MOD_LCTL), &kp END)
   ZMK_MOD_MORPH(NAME, mods = <(MOD_L##MOD | MOD_R##MOD)>;                      \
                 bindings = <BINDING1>, <BINDING2>;)
 
-// Simplified approach - single behavior that handles all cases
+// Try reversing the order - check for Ctrl+Shift first
 ZMK_MOD_MORPH(qmark_morph,
-    bindings = <&kp QMARK>, <&qmark_shifted>;
+    bindings = <&qmark_no_ctrl>, <&qmark_with_ctrl>;
+    mods = <(MOD_LCTL | MOD_RCTL)>;
+)
+
+ZMK_MOD_MORPH(qmark_no_ctrl,
+    bindings = <&kp QMARK>, <&kp FSLH>;
     mods = <(MOD_LSFT | MOD_RSFT)>;
 )
 
-ZMK_MOD_MORPH(qmark_shifted,
-    bindings = <&kp FSLH>, <&kp BSLH>;
-    mods = <(MOD_LCTL | MOD_RCTL)>;
+ZMK_MOD_MORPH(qmark_with_ctrl,
+    bindings = <&kp QMARK>, <&kp BSLH>;
+    mods = <(MOD_LSFT | MOD_RSFT)>;
 )
 
 // tap: " | shift + tap: ' | ctrl + shift + tap: `
