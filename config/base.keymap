@@ -105,16 +105,16 @@ MASK_MODS(masked_end,  (MOD_LCTL), &kp END)
   ZMK_MOD_MORPH(NAME, mods = <(MOD_L##MOD | MOD_R##MOD)>;                      \
                 bindings = <BINDING1>, <BINDING2>;)
 
-// Macro to output backslash directly
-ZMK_MACRO(backslash_out,
-    wait-ms = <0>;
-    tap-ms = <5>;
-    bindings = <&kp BSLH>;
+// Simplified approach - single behavior that handles all cases
+ZMK_MOD_MORPH(qmark_morph,
+    bindings = <&kp QMARK>, <&qmark_shifted>;
+    mods = <(MOD_LSFT | MOD_RSFT)>;
 )
 
-// tap: ? | shift + tap: / | ctrl + shift + tap: BACKSLASH
-SIMPLE_MORPH(qmark_morph, SFT, &kp QMARK, &qmark_inner_morph)
-SIMPLE_MORPH(qmark_inner_morph, CTL, &kp FSLH, &backslash_out)
+ZMK_MOD_MORPH(qmark_shifted,
+    bindings = <&kp FSLH>, <&kp BSLH>;
+    mods = <(MOD_LCTL | MOD_RCTL)>;
+)
 
 // tap: " | shift + tap: ' | ctrl + shift + tap: `
 SIMPLE_MORPH(quote_morph, SFT, &kp DQT, &quote_inner_morph)
