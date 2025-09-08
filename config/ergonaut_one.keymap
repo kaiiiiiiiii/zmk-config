@@ -6,14 +6,14 @@
 ZMK_LAYER(WIN_BASE,
     &kp EQUAL       WIN_BASE_LT  WIN_BASE_RT    &kp MINUS
     &kp LBKT        WIN_BASE_LM  WIN_BASE_RM    &kp RBKT
-    &pipe_morph     WIN_BASE_LB  WIN_BASE_RB    &quote_morph
+    &qmark_morph    WIN_BASE_LB  WIN_BASE_RB    &quote_morph
     WIN_BASE_LH          WIN_BASE_RH
 )
 
 ZMK_LAYER(MAC_BASE,
     &kp EQUAL       MAC_BASE_LT  MAC_BASE_RT    &kp MINUS
     &kp LBKT        MAC_BASE_LM  MAC_BASE_RM    &kp RBKT
-    &pipe_morph     MAC_BASE_LB  MAC_BASE_RB    &quote_morph
+    &qmark_morph    MAC_BASE_LB  MAC_BASE_RB    &quote_morph
     MAC_BASE_LH     MAC_BASE_RH
 )
 

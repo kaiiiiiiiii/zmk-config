@@ -1,0 +1,15 @@
+# WARNING. THIS FILE IS AUTO-GENERATED. DO NOT MODIFY!
+#
+# This file contains build system settings derived from your modules.
+#
+# Modules may be set via ZEPHYR_MODULES, ZEPHYR_EXTRA_MODULES,
+# and/or the west manifest file.
+#
+# See the Modules guide for more information.
+"DTS_ROOT":"/home/runner/work/zmk-config/zmk-config/modules/zmk/adaptive-key"
+"DTS_ROOT":"/home/runner/work/zmk-config/zmk-config/modules/zmk/auto-layer"
+"DTS_ROOT":"/home/runner/work/zmk-config/zmk-config/modules/zmk/helpers"
+"DTS_ROOT":"/home/runner/work/zmk-config/zmk-config/modules/zmk/leader-key"
+"DTS_ROOT":"/home/runner/work/zmk-config/zmk-config/modules/hal/stm32"
+"DTS_ROOT":"/home/runner/work/zmk-config/zmk-config/zmk/app/module"
+"MODULE_EXT_ROOT":"/home/runner/work/zmk-config/zmk-config/zmk/app/keymap-module"

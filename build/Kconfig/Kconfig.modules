@@ -1,0 +1,54 @@
+menu "zmk-adaptive-key (/home/runner/work/zmk-config/zmk-config/modules/zmk/adaptive-key)"
+osource "/home/runner/work/zmk-config/zmk-config/modules/zmk/adaptive-key/Kconfig"
+config ZEPHYR_ZMK_ADAPTIVE_KEY_MODULE
+	bool
+	default y
+endmenu
+menu "zmk-auto-layer (/home/runner/work/zmk-config/zmk-config/modules/zmk/auto-layer)"
+osource "/home/runner/work/zmk-config/zmk-config/modules/zmk/auto-layer/Kconfig"
+config ZEPHYR_ZMK_AUTO_LAYER_MODULE
+	bool
+	default y
+endmenu
+menu "zmk-leader-key (/home/runner/work/zmk-config/zmk-config/modules/zmk/leader-key)"
+osource "/home/runner/work/zmk-config/zmk-config/modules/zmk/leader-key/Kconfig"
+config ZEPHYR_ZMK_LEADER_KEY_MODULE
+	bool
+	default y
+endmenu
+menu "nanopb (/home/runner/work/zmk-config/zmk-config/modules/lib/nanopb)"
+osource "$(ZEPHYR_NANOPB_KCONFIG)"
+config ZEPHYR_NANOPB_MODULE
+	bool
+	default y
+endmenu
+menu "cmsis (/home/runner/work/zmk-config/zmk-config/modules/hal/cmsis)"
+osource "$(ZEPHYR_CMSIS_KCONFIG)"
+config ZEPHYR_CMSIS_MODULE
+	bool
+	default y
+endmenu
+menu "hal_nordic (/home/runner/work/zmk-config/zmk-config/modules/hal/nordic)"
+osource "$(ZEPHYR_HAL_NORDIC_KCONFIG)"
+config ZEPHYR_HAL_NORDIC_MODULE
+	bool
+	default y
+endmenu
+menu "hal_rpi_pico (/home/runner/work/zmk-config/zmk-config/modules/hal/rpi_pico)"
+osource "$(ZEPHYR_HAL_RPI_PICO_KCONFIG)"
+config ZEPHYR_HAL_RPI_PICO_MODULE
+	bool
+	default y
+endmenu
+menu "lvgl (/home/runner/work/zmk-config/zmk-config/modules/lib/gui/lvgl)"
+osource "/home/runner/work/zmk-config/zmk-config/modules/lib/gui/lvgl/Kconfig"
+config ZEPHYR_LVGL_MODULE
+	bool
+	default y
+endmenu
+menu "module (/home/runner/work/zmk-config/zmk-config/zmk/app/module)"
+osource "/home/runner/work/zmk-config/zmk-config/zmk/app/module/Kconfig"
+config ZEPHYR_MODULE_MODULE
+	bool
+	default y
+endmenu
