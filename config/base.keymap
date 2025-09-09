@@ -1,6 +1,7 @@
 #include <behaviors.dtsi>
 #include <behaviors/num_word.dtsi> // Requires auto-layer module.
 #include <dt-bindings/zmk/keys.h>
+
 #ifdef CONFIG_WIRELESS
   #include <dt-bindings/zmk/bt.h>
   #include <dt-bindings/zmk/outputs.h>
@@ -11,6 +12,24 @@
 #else
   #define _BT_SEL_KEYS_LEFT_  XXX  XXX  XXX  XXX  XXX
   #define _BT_SEL_KEYS_RIGHT_ XXX  XXX  XXX  XXX  XXX
+#endif
+
+#ifdef CONFIG_BACKLIGHT
+  #include <dt-bindings/zmk/backlight.h>
+  #define _BL_TOG_ &bl BL_TOG
+  #define _BL_STEP_ &bl BL_STEP
+#else
+  #define _BL_TOG_ XXX
+  #define _BL_STEP_ XXX
+#endif
+
+#ifdef CONFIG_RGB_UNDERGLOW
+  #include <dt-bindings/zmk/rgb.h>
+  #define _RGB_TOG_ &rgb_ug RGB_TOG
+  #define _RGB_STEP_ &rgb_ug RGB_EFF
+#else
+  #define _RGB_TOG_ XXX
+  #define _RGB_STEP_ XXX
 #endif
 
 #include "zmk-helpers/helper.h"
