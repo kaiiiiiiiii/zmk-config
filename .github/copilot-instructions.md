@@ -20,7 +20,7 @@ Concise, project-specific guidance to be productive quickly## 8. When Modifying
 
 This repository contains a personal ZMK (Zephyr Mechanical Keyboard) firmware
 configuration for building custom keyboard firmware. It supports multiple
-keyboards (e.g., Cheapino v2, Ergonaut One) with cross-platform OS switching
+keyboards (e.g., Cheapino v2, Ergonaut One, Kinesis Advantage 360 Pro) with cross-platform OS switching
 (Windows/macOS), home row modifiers, optimized navigation, and visual keymap
 diagrams. The setup uses Nix for reproducible development environments, direnv
 for automatic activation, and Just for task automation. Key features include
