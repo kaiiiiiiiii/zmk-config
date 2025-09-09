@@ -66,10 +66,12 @@ draw *targets:
     declare -A LAYOUTS=( \
         [ergonaut_one]=LAYOUT_split_3x6_3 \
         [cheapinov2]=LAYOUT_split_3x5_3 \
+        [adv360pro]=LAYOUT_ortho_4x12 \
     )
     declare -A KEYBOARDS=( \
         [ergonaut_one]=corne_rotated \
         [cheapinov2]=corne_rotated \
+        [adv360pro]=adv360pro \
     )
 
     list_targets() { printf '%s\n' "${!LAYOUTS[@]}" | sort; }
