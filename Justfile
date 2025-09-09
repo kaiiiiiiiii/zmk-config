@@ -66,26 +66,31 @@ draw *targets:
     declare -A LAYOUTS=( \
         [ergonaut_one]=LAYOUT_split_3x6_3 \
         [cheapinov2]=LAYOUT_split_3x5_3 \
-        [adv360pro]=LAYOUT_ortho_4x12 \
     )
     declare -A KEYBOARDS=( \
         [ergonaut_one]=corne_rotated \
         [cheapinov2]=corne_rotated \
         [adv360pro]=adv360pro \
     )
+    declare -A LAYER_NAMES=( \
+        [ergonaut_one]='"Base (Windows)" "Base (Mac)" "Navigation (Windows)" "Navigation (Mac)" "Number (Windows)" "Number (Mac)" "System"' \
+        [cheapinov2]='"Base (Windows)" "Base (Mac)" "Navigation (Windows)" "Navigation (Mac)" "Number (Windows)" "Number (Mac)" "System"' \
+        [adv360pro]='"Base (Windows)" "Navigation (Windows)" "Number (Windows)" "System"' \
+    )
 
-    list_targets() { printf '%s\n' "${!LAYOUTS[@]}" | sort; }
+    list_targets() { printf '%s\n' "${!KEYBOARDS[@]}" | sort; }
 
     draw_one() {
         local name="$1"
         local layout="${LAYOUTS[$name]:-}"
         local keyboard="${KEYBOARDS[$name]:-}"
-        if [[ -z "$layout" || -z "$keyboard" ]]; then
+        local layer_names="${LAYER_NAMES[$name]:-}"
+        if [[ -z "$layer_names" || -z "$keyboard" ]]; then
             echo "Unknown draw target: $name" >&2
             echo -n "Valid targets: " >&2; list_targets >&2; echo "(or 'all')" >&2
             return 1
         fi
-        echo "Drawing keymap: $name (keyboard=$keyboard layout=$layout)"
+        echo "Drawing keymap: $name (keyboard=$keyboard layout=$layout layer_names=$layer_names)"
         local keymap_file="{{ config }}/$name.keymap"
         if [[ ! -f "$keymap_file" ]]; then
             echo "Missing keymap file: $keymap_file" >&2
@@ -93,10 +98,15 @@ draw *targets:
         fi
         local yaml_out="{{ draw }}/$name.yaml"
         local svg_out="{{ draw }}/$name.svg"
-        keymap -c "{{ draw }}/config.yaml" parse -z "$keymap_file" --virtual-layers Combos --layer-names "Base (Windows)" "Base (Mac)" "Navigation (Windows)" "Navigation (Mac)" "Number (Windows)" "Number (Mac)" "System" >"$yaml_out"
+        eval "keymap -c '{{ draw }}/config.yaml' parse -z '$keymap_file' --virtual-layers Combos --layer-names $layer_names >'$yaml_out'"
         # Attach virtual Combos layer to all combos for drawing (ignore errors if no combos)
         yq -Yi '.combos.[].l = ["Combos"]' "$yaml_out" 2>/dev/null || true
-        keymap -c "{{ draw }}/config.yaml" draw "$yaml_out" -k "$keyboard" -l "$layout" >"$svg_out"
+        # Build draw arguments; omit -l when layout is empty
+        draw_args=()
+        [[ -n "$keyboard" ]] && draw_args+=("-z" "$keyboard")
+        [[ -n "$layout" ]] && draw_args+=("-l" "$layout")
+
+        keymap -c "{{ draw }}/config.yaml" draw "$yaml_out" "${draw_args[@]}" >"$svg_out"
     }
 
     # If no targets supplied treat as 'all'
@@ -151,31 +161,3 @@ update:
 # upgrade zephyr-sdk and python dependencies
 upgrade-sdk:
     nix flake update --flake .
-
-[no-cd]
-test $testpath *FLAGS:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    testcase=$(basename "$testpath")
-    build_dir="{{ build / "tests" / '$testcase' }}"
-    config_dir="{{ '$(pwd)' / '$testpath' }}"
-    cd {{ justfile_directory() }}
-
-    if [[ "{{ FLAGS }}" != *"--no-build"* ]]; then
-        echo "Running $testcase..."
-        rm -rf "$build_dir"
-        west build -s zmk/app -d "$build_dir" -b native_posix_64 -- \
-            -DCONFIG_ASSERT=y -DZMK_CONFIG="$config_dir"
-    fi
-
-    ${build_dir}/zephyr/zmk.exe | sed -e "s/.*> //" |
-        tee ${build_dir}/keycode_events.full.log |
-        sed -n -f ${config_dir}/events.patterns > ${build_dir}/keycode_events.log
-    if [[ "{{ FLAGS }}" == *"--verbose"* ]]; then
-        cat ${build_dir}/keycode_events.log
-    fi
-
-    if [[ "{{ FLAGS }}" == *"--auto-accept"* ]]; then
-        cp ${build_dir}/keycode_events.log ${config_dir}/keycode_events.snapshot
-    fi
-    diff -auZ ${config_dir}/keycode_events.snapshot ${build_dir}/keycode_events.log

@@ -1,0 +1,312 @@
+layout: {zmk_keyboard: adv360pro}
+layers:
+  Base (Windows):
+  - '='
+  - '1'
+  - '2'
+  - '3'
+  - '4'
+  - '5'
+  - {t: Navigation (Windows), h: toggle}
+  - System
+  - '6'
+  - '7'
+  - '8'
+  - '9'
+  - '0'
+  - '-'
+  - Tab
+  - Q
+  - W
+  - E
+  - R
+  - T
+  - ''
+  - ''
+  - Y
+  - U
+  - I
+  - O
+  - P
+  - \
+  - Esc
+  - {t: A, h: Gui}
+  - {t: S, h: Alt}
+  - {t: D, h: Ctrl}
+  - {t: F, h: Shift}
+  - G
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - H
+  - {t: J, h: Shift}
+  - {t: K, h: Ctrl}
+  - {t: L, h: Alt}
+  - {t: ;, h: Gui}
+  - ''''
+  - ''
+  - Z
+  - X
+  - C
+  - V
+  - B
+  - ''
+  - ''
+  - N
+  - M
+  - ','
+  - {t: ., h: Sentence}
+  - /
+  - ''
+  - Number (Windows)
+  - '`'
+  - ''
+  - {t: ←, h: Home}
+  - {t: →, h: End}
+  - {t: Bspc, h: Ctl+Bspc}
+  - {t: Del, h: Ctl+Del}
+  - ''
+  - ''
+  - ENTER
+  - Spc
+  - {t: ↑, h: Ctl+Home}
+  - {t: ↓, h: Ctl+End}
+  - {t: '[', right: '{'}
+  - {t: ']', right: '}'}
+  - Number (Windows)
+  Navigation (Windows):
+  - '='
+  - '1'
+  - '2'
+  - '3'
+  - '4'
+  - '5'
+  - {type: trans}
+  - System
+  - '6'
+  - KP NUM
+  - KP EQUAL
+  - KP DIVIDE
+  - KP MULTIPLY
+  - '-'
+  - Tab
+  - Q
+  - W
+  - E
+  - R
+  - T
+  - ''
+  - ''
+  - Y
+  - KP 7
+  - KP 8
+  - KP 9
+  - KP MINUS
+  - \
+  - Esc
+  - A
+  - S
+  - D
+  - F
+  - G
+  - ''
+  - Ctrl
+  - Alt
+  - Gui
+  - Ctrl
+  - ''
+  - H
+  - KP 4
+  - KP 5
+  - KP 6
+  - KP PLUS
+  - ''''
+  - Shift
+  - Z
+  - X
+  - C
+  - V
+  - B
+  - Home
+  - PgUp
+  - N
+  - KP 1
+  - KP 2
+  - KP 3
+  - KP ENTER
+  - Shift
+  - Number (Windows)
+  - '`'
+  - CAPS
+  - ←
+  - →
+  - Bspc
+  - Del
+  - End
+  - PgDn
+  - ENTER
+  - KP 0
+  - ↑
+  - ↓
+  - KP DOT
+  - {t: ']', right: '}'}
+  - Number (Windows)
+  Number (Windows):
+  - F1
+  - F2
+  - F3
+  - F4
+  - F5
+  - F6
+  - {t: Navigation (Windows), h: toggle}
+  - System
+  - F7
+  - F8
+  - F9
+  - F10
+  - F11
+  - F12
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - ''
+  - ''
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - ''
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - ''
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: held}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  - {type: trans}
+  System:
+  - ''
+  - BT 1
+  - BT 2
+  - BT 3
+  - BT 4
+  - {t: BT, h: '4'}
+  - ''
+  - {type: held}
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - Boot
+  - Boot
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - BT CLR
+  - ''
+  - RGB MEFS CMD 5
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - '&bl BL_TOG'
+  - RGB TOG
+  - '&bl BL_INC'
+  - '&bl BL_DEC'
+  - ''
+  - ''
+  - ''
+  Combos: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
+    '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
