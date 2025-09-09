@@ -1,5 +1,5 @@
 {
-  "name": "Nix Config Dev Container",
+  "name": "ZMK Config Dev Container",
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
   "features": {
     "ghcr.io/devcontainers/features/nix:1": {},
