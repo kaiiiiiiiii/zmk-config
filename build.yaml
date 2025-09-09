@@ -8,6 +8,10 @@ include:
     shield: ergonaut_one_left
   - board: seeeduino_xiao_ble
     shield: ergonaut_one_right
-  # Settings reset
   - board: seeeduino_xiao_ble
     shield: settings_reset
+  # Kinesis Advantage 360 Pro
+  - board: adv360pro
+    shield: kinesis_advantage_360_pro_left
+  - board: adv360pro
+    shield: kinesis_advantage_360_pro_right
