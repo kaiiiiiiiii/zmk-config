@@ -62,6 +62,7 @@ clean-nix:
 draw *targets:
     #!/usr/bin/env bash
     set -euo pipefail
+    set -- {{ targets }}
     # Per-target metadata
     declare -A LAYOUTS=( \
         [ergonaut_one]=LAYOUT_split_3x6_3 \
@@ -114,7 +115,21 @@ draw *targets:
         set -- all
     fi
 
-    # Expand 'all' (can be combined with explicit names)
+    # Disallow mixing 'all' with explicit targets
+    if [[ $# -gt 1 ]]; then
+        for t in "$@"; do
+            if [[ $t == all ]]; then
+                echo "Error: 'all' cannot be combined with explicit targets." >&2
+                echo "Usage:" >&2
+                echo "  just draw                    # draw all" >&2
+                echo "  just draw all                # draw all" >&2
+                echo "  just draw TARGET [TARGET...] # draw only specified targets" >&2
+                echo -n "Valid targets: " >&2; list_targets >&2
+                exit 2
+            fi
+        done
+    fi
+
     expanded=()
     for t in "$@"; do
         if [[ $t == all ]]; then
