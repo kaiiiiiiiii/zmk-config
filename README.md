@@ -34,11 +34,11 @@ with keymap-drawer.
 Generated diagrams (via `just draw`) for the keyboards currently configured in
 this repo:
 
-| Keyboard                                              | Description                                   | Keymap Diagram                                                                                                                 |
-| ----------------------------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| **[Cheapino v2](https://github.com/tompi/cheapino)**  | nice_nano_v2 shield                           | <a href="keymap-drawer/cheapinov2.svg"><img src="keymap-drawer/cheapinov2.svg" height="100" alt="Cheapino v2 keymap"></a>      |
-| **[Ergonaut One](https://github.com/ergonautkb/one)** | seeeduino_xiao_ble shield (left/right halves) | <a href="keymap-drawer/ergonaut_one.svg"><img src="keymap-drawer/ergonaut_one.svg" height="100" alt="Ergonaut One keymap"></a> |
-| **Kinesis Advantage 360 Pro**                         | adv360pro board                               | <a href="keymap-drawer/adv360pro.svg"><img src="keymap-drawer/adv360pro.svg" height="100" alt="Kinesis Advantage 360 Pro keymap"></a> |
+| Keyboard                                                                         | Description                                   | Keymap Diagram                                                                                                                        |
+| -------------------------------------------------------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| **[Cheapino v2](https://github.com/tompi/cheapino)**                             | nice_nano_v2 shield                           | <a href="keymap-drawer/cheapinov2.svg"><img src="keymap-drawer/cheapinov2.svg" height="100" alt="Cheapino v2 keymap"></a>             |
+| **[Ergonaut One](https://github.com/ergonautkb/one)**                            | seeeduino_xiao_ble shield (left/right halves) | <a href="keymap-drawer/ergonaut_one.svg"><img src="keymap-drawer/ergonaut_one.svg" height="100" alt="Ergonaut One keymap"></a>        |
+| **[Kinesis Advantage 360 Pro](https://kinesis-ergo.com/keyboards/advantage360)** | adv360pro board                               | <a href="keymap-drawer/adv360pro.svg"><img src="keymap-drawer/adv360pro.svg" height="100" alt="Kinesis Advantage 360 Pro keymap"></a> |
 
 ## 🛠️ Features
 
