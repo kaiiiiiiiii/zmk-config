@@ -1,0 +1,16 @@
+{
+  "name": "Nix Config Dev Container",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/devcontainers/features/nix:1": {},
+    "ghcr.io/devcontainers/features/python:1": {},
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers-extra/features/direnv:1": {}
+  },
+  "mounts": [
+    "source=${localWorkspaceFolder}/.vscode,target=/workspaces/zmk-config/.vscode,type=bind"
+  ],
+  "forwardPorts": [],
+  "remoteUser": "vscode"
+}
