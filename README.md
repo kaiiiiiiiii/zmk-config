@@ -38,6 +38,7 @@ this repo:
 | ----------------------------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | **[Cheapino v2](https://github.com/tompi/cheapino)**  | nice_nano_v2 shield                           | <a href="keymap-drawer/cheapinov2.svg"><img src="keymap-drawer/cheapinov2.svg" height="100" alt="Cheapino v2 keymap"></a>      |
 | **[Ergonaut One](https://github.com/ergonautkb/one)** | seeeduino_xiao_ble shield (left/right halves) | <a href="keymap-drawer/ergonaut_one.svg"><img src="keymap-drawer/ergonaut_one.svg" height="100" alt="Ergonaut One keymap"></a> |
+| **Kinesis Advantage 360 Pro**                         | adv360pro board                               | <a href="keymap-drawer/adv360pro.svg"><img src="keymap-drawer/adv360pro.svg" height="100" alt="Kinesis Advantage 360 Pro keymap"></a> |
 
 ## 🛠️ Features
 
@@ -149,18 +150,21 @@ Build all targets:
 
 ```bash
 just build all -p  # Pristine build
+# or build a specific keyboard
+just build adv360pro
 ```
 
 Build specific keyboard:
 
 ```bash
 just build cheapinov2
+just build adv360pro
 ```
 
 Draw keymaps:
 
 ```bash
-just draw cheapinov2 ergonaut_one
+just draw cheapinov2 ergonaut_one adv360pro
 ```
 
 <a name="github-actions"></a>
