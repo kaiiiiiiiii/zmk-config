@@ -12,13 +12,6 @@
 #define NUM 2
 #define SYS 3
 
-#define WIN_DEF DEF
-#define MAC_DEF DEF
-#define WIN_NAV NAV
-#define MAC_NAV NAV
-#define WIN_NUM NUM
-#define MAC_NUM NUM
-
 ZMK_CONDITIONAL_LAYER(sys, NAV NUM, SYS)
 
     /* &kp EQUAL  &kp N1          &kp N2          &kp N3       &kp N4            &kp N5  &tog 1                                                           &mo 3      &kp N6  &kp N7             &kp N8       &kp N9           &kp N0              &kp MINUS

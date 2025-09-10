@@ -7,6 +7,10 @@ manifest:
       url-base: https://github.com/urob
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
+    - name: ergonautkb
+      url-base: https://github.com/ergonautkb
+    - name: tompi
+      url-base: https://github.com/tompi
   projects:
     - name: zmk
       remote: zmkfirmware
@@ -37,5 +41,11 @@ manifest:
           - hal_stm32
           - lvgl
           - tinycrypt
+    - name: ergonautkb-zmk-module
+      remote: ergonautkb
+      revision: main
+    - name: cheapino-zmk-config-single-nicenano
+      remote: tompi
+      revision: main
   self:
     path: config
