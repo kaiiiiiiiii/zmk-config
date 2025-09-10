@@ -5,19 +5,31 @@
 #include "zmk-helpers/key-labels/adv360.h"
 #include "base.keymap"
 
-#define BASE 0
-#define NAV 2
-#define NUM 4
-#define SYS 6
+#undef SYS
+
+#define DEF 0
+#define NAV 1
+#define NUM 2
+#define SYS 3
+
+#define WIN_DEF DEF
+#define MAC_DEF DEF
+#define WIN_NAV NAV
+#define MAC_NAV NAV
+#define WIN_NUM NUM
+#define MAC_NUM NUM
 
 ZMK_CONDITIONAL_LAYER(sys, NAV NUM, SYS)
 
-ZMK_LAYER(BASE,
-    &kp EQUAL  &kp N1          &kp N2          &kp N3       &kp N4            &kp N5  &tog 1                                                           &mo 3      &kp N6  &kp N7             &kp N8       &kp N9           &kp N0              &kp MINUS
+    /* &kp EQUAL  &kp N1          &kp N2          &kp N3       &kp N4            &kp N5  &tog 1                                                           &mo 3      &kp N6  &kp N7             &kp N8       &kp N9           &kp N0              &kp MINUS
     &kp TAB    &kp Q           &kp W           &kp E        &kp R             &kp T   XXX                                                            XXX      &kp Y   &kp U              &kp I        &kp O            &kp P               &kp BSLH
     &kp ESC    &hml LGUI A     &hml LALT S     &hml LCTRL D &hml LSHFT F      &kp G   XXX     XXX   XXX   XXX  XXX  XXX      &kp H   &hmr RSHFT J       &hmr LCTRL K &hmr LALT L      &hmr LGUI SEMI           &kp SQT
     XXX  &kp Z           &kp X           &kp C        &kp V             &kp B                        XXX          XXX                            &kp N   &kp M              &kp COMMA    DOT_MORPH          &kp FSLH            XXX
-    &mo 2      &kp GRAVE       XXX        NAV_LEFT     NAV_RIGHT         BSPC_MORPH  DEL_MORPH    XXX           XXX      &kp ENTER  &kp SPACE          NAV_UP             NAV_DOWN     &kp LBKT         &kp RBKT            &mo 2
+    &mo 2      &kp GRAVE       XXX        NAV_LEFT     NAV_RIGHT         BSPC_MORPH  DEL_MORPH    XXX           XXX      &kp ENTER  &kp SPACE          NAV_UP             NAV_DOWN     &kp LBKT         &kp RBKT            &mo 2 */
+ZMK_LAYER(DEF,
+    XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX 
+    XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX 
+    XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX
 )
 
 ZMK_LAYER(NAV,
@@ -36,10 +48,13 @@ ZMK_LAYER(NUM,
     ___  ___  ___  ___  ___          ___  ___  ___      ___  ___  ___          ___  ___  ___   ___   ___
 )
 
-ZMK_LAYER(SYS,
-    XXX  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  XXX                                                  ___                  XXX  XXX       XXX       XXX  XXX  XXX
+    /* XXX  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  XXX                                                  ___                  XXX  XXX       XXX       XXX  XXX  XXX
     XXX  XXX         XXX         XXX         XXX         XXX         &bootloader                                            &bootloader             XXX  XXX       XXX       XXX  XXX  XXX
     XXX  XXX         XXX         XXX         XXX         XXX         XXX        XXX  XXX      &bt BT_CLR  XXX       &rgb_ug RGB_MEFS_CMD 5  XXX  XXX       XXX       XXX  XXX  XXX
     XXX  XXX         XXX         XXX         XXX         XXX                             XXX      XXX                                           XXX  XXX       XXX       XXX  XXX  XXX
-    XXX  XXX         XXX         XXX         XXX                       XXX        XXX  XXX      XXX       &bl BL_TOG  &rgb_ug RGB_TOG                &bl BL_INC  &bl BL_DEC  XXX  XXX  XXX
+    XXX  XXX         XXX         XXX         XXX                       XXX        XXX  XXX      XXX       &bl BL_TOG  &rgb_ug RGB_TOG                &bl BL_INC  &bl BL_DEC  XXX  XXX  XXX */
+ZMK_LAYER(SYS,
+    XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX 
+    XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX 
+    XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX
 )

@@ -1,6 +1,6 @@
 layout: {zmk_keyboard: cheapinov2}
 layers:
-  Base (Windows):
+  DEF (Win):
   - Q
   - W
   - E
@@ -31,13 +31,13 @@ layers:
   - {t: ',', s: <}
   - {t: ., h: Sentence}
   - {t: '?', s: /}
-  - {t: Esc, h: Navigation (Windows)}
+  - {t: Esc, h: NAV (Win)}
   - {t: Bspc, h: Ctl+Bspc}
   - {t: Del, h: Ctl+Del}
   - ENTER
   - Spc
-  - {t: Tab, h: Number (Windows)}
-  Base (Mac):
+  - {t: Tab, h: NUM (Windows)}
+  DEF (Mac):
   - Q
   - W
   - E
@@ -68,13 +68,13 @@ layers:
   - {t: ',', s: <}
   - {t: ., h: Sentence}
   - {t: '?', s: /}
-  - {t: Esc, h: Navigation (Mac)}
+  - {t: Esc, h: NAV (Mac)}
   - {t: Bspc, h: Ctl+Bspc}
   - {t: Del, h: Alt+Del}
   - ENTER
   - Spc
-  - {t: Tab, h: Number (Mac)}
-  Navigation (Windows):
+  - {t: Tab, h: NUM (Mac)}
+  NAV (Win):
   - ''
   - ''
   - ''
@@ -111,7 +111,7 @@ layers:
   - {type: trans}
   - {type: trans}
   - {type: trans}
-  Navigation (Mac):
+  NAV (Mac):
   - ''
   - ''
   - ''
@@ -148,7 +148,7 @@ layers:
   - {type: trans}
   - {type: trans}
   - {type: trans}
-  Number (Windows):
+  NUM (Windows):
   - '!'
   - '@'
   - '#'
@@ -185,7 +185,7 @@ layers:
   - {type: trans}
   - {type: trans}
   - {type: held}
-  Number (Mac):
+  NUM (Mac):
   - '!'
   - '@'
   - '#'
@@ -222,7 +222,7 @@ layers:
   - {type: trans}
   - {type: trans}
   - {type: held}
-  System:
+  SYS:
   - Boot
   - Studio Unlock
   - ''

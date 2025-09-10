@@ -65,18 +65,18 @@ draw *targets:
     set -- {{ targets }}
     # Per-target metadata
     declare -A LAYOUTS=( \
-        [ergonaut_one]=LAYOUT_split_3x6_3 \
         [cheapinov2]=LAYOUT_split_3x5_3 \
+        [ergonaut_one]=LAYOUT_split_3x6_3 \
     )
     declare -A KEYBOARDS=( \
-        [ergonaut_one]=corne_rotated \
-        [cheapinov2]=corne_rotated \
         [adv360pro]=adv360pro \
+        [cheapinov2]=corne_rotated \
+        [ergonaut_one]=corne_rotated \
     )
     declare -A LAYER_NAMES=( \
-        [ergonaut_one]='"Base (Windows)" "Base (Mac)" "Navigation (Windows)" "Navigation (Mac)" "Number (Windows)" "Number (Mac)" "System"' \
-        [cheapinov2]='"Base (Windows)" "Base (Mac)" "Navigation (Windows)" "Navigation (Mac)" "Number (Windows)" "Number (Mac)" "System"' \
-        [adv360pro]='"Base (Windows)" "Navigation (Windows)" "Number (Windows)" "System"' \
+        [adv360pro]='"DEF" "NAV" "NUM" "SYS"' \
+        [cheapinov2]='"DEF (Win)" "DEF (Mac)" "NAV (Win)" "NAV (Mac)" "NUM (Windows)" "NUM (Mac)" "SYS"' \
+        [ergonaut_one]='"DEF (Win)" "DEF (Mac)" "NAV (Win)" "NAV (Mac)" "NUM (Windows)" "NUM (Mac)" "SYS"' \
     )
 
     list_targets() { printf '%s\n' "${!KEYBOARDS[@]}" | sort; }
@@ -99,7 +99,7 @@ draw *targets:
         fi
         local yaml_out="{{ draw }}/$name.yaml"
         local svg_out="{{ draw }}/$name.svg"
-        eval "keymap -c '{{ draw }}/config.yaml' parse -z '$keymap_file' --virtual-layers Combos --layer-names $layer_names >'$yaml_out'"
+        eval "keymap -c '{{ draw }}/config.yaml' parse -z '$keymap_file' --virtual-layers Combos --layer-names $layer_names > '$yaml_out'"
         # Attach virtual Combos layer to all combos for drawing (ignore errors if no combos)
         yq -Yi '.combos.[].l = ["Combos"]' "$yaml_out" 2>/dev/null || true
         # Build draw arguments; omit -l when layout is empty

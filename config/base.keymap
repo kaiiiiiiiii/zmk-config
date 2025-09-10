@@ -35,8 +35,8 @@
 #include "zmk-helpers/helper.h"
 #include "zmk-helpers/unicode-chars/german.dtsi"
 
-#define WIN_BASE 0
-#define MAC_BASE 1
+#define WIN_DEF 0
+#define MAC_DEF 1
 #define WIN_NAV 2
 #define MAC_NAV 3
 #define WIN_NUM 4
@@ -154,24 +154,24 @@ ZMK_MACRO(dot_spc,
 ZMK_HOLD_TAP(mt_dot, bindings = <&dot_spc>, <&kp>; MT_CORE)
 
 // Base (WIN) layer
-#define WIN_BASE_LT  &kp Q            &kp W           &kp E           &kp R           &kp T
-#define WIN_BASE_RT  &kp Y            &kp U           &kp I           &kp O           &kp P
-#define WIN_BASE_LM  &hml LGUI A      &hml LALT S     &hml LCTRL D    &hml LSHFT F    &kp G
-#define WIN_BASE_RM  &kp H            &hmr RSHFT J    &hmr RCTRL K    &hmr RALT L     &hmr RGUI SEMI
-#define WIN_BASE_LB  &kp Z            &kp X           &kp C           &kp V           &kp B
-#define WIN_BASE_RB  &kp N            &kp M           &comma_morph    DOT_MORPH       &qmark_morph
-#define WIN_BASE_LH  &lt WIN_NAV ESC  BSPC_MORPH      WIN_DEL_MORPH
-#define WIN_BASE_RH  &kp ENTER        &kp SPACE       &lt WIN_NUM TAB
+#define WIN_DEF_LT  &kp Q            &kp W           &kp E           &kp R           &kp T
+#define WIN_DEF_RT  &kp Y            &kp U           &kp I           &kp O           &kp P
+#define WIN_DEF_LM  &hml LGUI A      &hml LALT S     &hml LCTRL D    &hml LSHFT F    &kp G
+#define WIN_DEF_RM  &kp H            &hmr RSHFT J    &hmr RCTRL K    &hmr RALT L     &hmr RGUI SEMI
+#define WIN_DEF_LB  &kp Z            &kp X           &kp C           &kp V           &kp B
+#define WIN_DEF_RB  &kp N            &kp M           &comma_morph    DOT_MORPH       &qmark_morph
+#define WIN_DEF_LH  &lt WIN_NAV ESC  BSPC_MORPH      WIN_DEL_MORPH
+#define WIN_DEF_RH  &kp ENTER        &kp SPACE       &lt WIN_NUM TAB
 
 // Base (MAC) layer
-#define MAC_BASE_LT  &kp Q            &kp W           &kp E           &kp R           &kp T
-#define MAC_BASE_RT  &kp Y            &kp U           &kp I           &kp O           &kp P
-#define MAC_BASE_LM  &hml LCTRL A     &hml LALT S     &hml LGUI D     &hml LSHFT F    &kp G
-#define MAC_BASE_RM  &kp H            &hmr RSHFT J    &hmr RCTRL K    &hmr RALT L     &hmr RGUI SEMI
-#define MAC_BASE_LB  &kp Z            &kp X           &kp C           &kp V           &kp B
-#define MAC_BASE_RB  &kp N            &kp M           &comma_morph    DOT_MORPH       &qmark_morph
-#define MAC_BASE_LH  &lt MAC_NAV ESC  BSPC_MORPH      MAC_DEL_MORPH
-#define MAC_BASE_RH  &kp ENTER        &kp SPACE       &lt MAC_NUM TAB
+#define MAC_DEF_LT  &kp Q            &kp W           &kp E           &kp R           &kp T
+#define MAC_DEF_RT  &kp Y            &kp U           &kp I           &kp O           &kp P
+#define MAC_DEF_LM  &hml LCTRL A     &hml LALT S     &hml LGUI D     &hml LSHFT F    &kp G
+#define MAC_DEF_RM  &kp H            &hmr RSHFT J    &hmr RCTRL K    &hmr RALT L     &hmr RGUI SEMI
+#define MAC_DEF_LB  &kp Z            &kp X           &kp C           &kp V           &kp B
+#define MAC_DEF_RB  &kp N            &kp M           &comma_morph    DOT_MORPH       &qmark_morph
+#define MAC_DEF_LH  &lt MAC_NAV ESC  BSPC_MORPH      MAC_DEL_MORPH
+#define MAC_DEF_RH  &kp ENTER        &kp SPACE       &lt MAC_NUM TAB
 
 // Navigation (WIN) layer
 #define WIN_NAV_LT  XXX             XXX             XXX             XXX             &kp C_VOL_UP
@@ -218,11 +218,7 @@ ZMK_HOLD_TAP(mt_dot, bindings = <&dot_spc>, <&kp>; MT_CORE)
 #define SYS_RT  XXX             XXX             XXX             &studio_unlock  &bootloader
 #define SYS_LM   _BT_SEL_KEYS_LEFT_
 #define SYS_RM   _BT_SEL_KEYS_RIGHT_
-#define SYS_LB  &sys_reset      XXX             XXX             XXX             &tog MAC_BASE
-#define SYS_RB  &tog MAC_BASE   XXX             XXX             XXX             &sys_reset
+#define SYS_LB  &sys_reset      XXX             XXX             XXX             &tog MAC_DEF
+#define SYS_RB  &tog MAC_DEF   XXX             XXX             XXX             &sys_reset
 #define SYS_LH  ___             XXX             XXX
 #define SYS_RH  XXX             XXX             ___
-
-// The tri-layer condition definition remains here (layer instantiation moved to hardware file).
-ZMK_CONDITIONAL_LAYER(sys_win, WIN_NAV WIN_NUM, SYS)
-ZMK_CONDITIONAL_LAYER(sys_mac, MAC_NAV MAC_NUM, SYS)

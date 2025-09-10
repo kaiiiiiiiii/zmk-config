@@ -7,7 +7,7 @@ parse_config:
     "&bootloader": Boot
     "&caps_word": Caps Word
     "&studio_unlock": Studio Unlock
-    "&tog MAC_BASE": Switch OS
+    "&tog MAC_DEF": Switch OS
 
     "&d_dance": { "t": "D", "h": "Ctrl" }
     "&k_dance": { "t": "K", "h": "Ctrl" }
@@ -16,6 +16,7 @@ parse_config:
     "&bt BT_SEL 1": BT 2
     "&bt BT_SEL 2": BT 3
     "&bt BT_SEL 3": BT 4
+    "&bt BT_SEL 4": BT 5
 
     "&kp LC(INS)": Copy
     "&kp LC(X)": Cut
@@ -29,9 +30,6 @@ parse_config:
     "&swapper": Next Win
     "&kp LS(TAB)": Prev Win
     "&dot_spc": Sentence
-    "&num_dance": { "t": "Numword", "s": "Sticky Num" }
-    "&magic_shift": { "t": Magic, "h": "Shift" }
-    "&smart_mouse": Smart Mouse
 
     "&hml LS(LALT)TAB": Tab
     "&hm_combo_ldr": Leader

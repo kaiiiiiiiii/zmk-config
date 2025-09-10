@@ -1,83 +1,8 @@
 layout: {zmk_keyboard: adv360pro}
 layers:
-  Base (Windows):
-  - '='
-  - '1'
-  - '2'
-  - '3'
-  - '4'
-  - '5'
-  - {t: Navigation (Windows), h: toggle}
-  - System
-  - '6'
-  - '7'
-  - '8'
-  - '9'
-  - '0'
-  - '-'
-  - Tab
-  - Q
-  - W
-  - E
-  - R
-  - T
-  - ''
-  - ''
-  - Y
-  - U
-  - I
-  - O
-  - P
-  - \
-  - Esc
-  - {t: A, h: Gui}
-  - {t: S, h: Alt}
-  - {t: D, h: Ctrl}
-  - {t: F, h: Shift}
-  - G
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - H
-  - {t: J, h: Shift}
-  - {t: K, h: Ctrl}
-  - {t: L, h: Alt}
-  - {t: ;, h: Gui}
-  - ''''
-  - ''
-  - Z
-  - X
-  - C
-  - V
-  - B
-  - ''
-  - ''
-  - N
-  - M
-  - ','
-  - {t: ., h: Sentence}
-  - /
-  - ''
-  - Number (Windows)
-  - '`'
-  - ''
-  - {t: ←, h: Home}
-  - {t: →, h: End}
-  - {t: Bspc, h: Ctl+Bspc}
-  - {t: Del, h: Ctl+Del}
-  - ''
-  - ''
-  - ENTER
-  - Spc
-  - {t: ↑, h: Ctl+Home}
-  - {t: ↓, h: Ctl+End}
-  - {t: '[', right: '{'}
-  - {t: ']', right: '}'}
-  - Number (Windows)
-  Navigation (Windows):
+  DEF: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
+    '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
+  NAV:
   - '='
   - '1'
   - '2'
@@ -85,7 +10,7 @@ layers:
   - '4'
   - '5'
   - {type: trans}
-  - System
+  - SYS
   - '6'
   - KP NUM
   - KP EQUAL
@@ -138,7 +63,7 @@ layers:
   - KP 3
   - KP ENTER
   - Shift
-  - Number (Windows)
+  - NUM
   - '`'
   - CAPS
   - ←
@@ -153,16 +78,16 @@ layers:
   - ↓
   - KP DOT
   - {t: ']', right: '}'}
-  - Number (Windows)
-  Number (Windows):
+  - NUM
+  NUM:
   - F1
   - F2
   - F3
   - F4
   - F5
   - F6
-  - {t: Navigation (Windows), h: toggle}
-  - System
+  - {t: NAV, h: toggle}
+  - SYS
   - F7
   - F8
   - F9
@@ -231,13 +156,13 @@ layers:
   - {type: trans}
   - {type: trans}
   - {type: trans}
-  System:
+  SYS:
   - ''
-  - BT 1
-  - BT 2
-  - BT 3
-  - BT 4
-  - {t: BT, h: '4'}
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
   - ''
   - {type: held}
   - ''
@@ -252,26 +177,6 @@ layers:
   - ''
   - ''
   - ''
-  - Boot
-  - Boot
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - BT CLR
-  - ''
-  - RGB MEFS CMD 5
   - ''
   - ''
   - ''
@@ -301,10 +206,30 @@ layers:
   - ''
   - ''
   - ''
-  - '&bl BL_TOG'
-  - RGB TOG
-  - '&bl BL_INC'
-  - '&bl BL_DEC'
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
   - ''
   - ''
   - ''
