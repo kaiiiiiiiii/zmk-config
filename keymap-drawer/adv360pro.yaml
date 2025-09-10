@@ -86,7 +86,7 @@ layers:
   - F4
   - F5
   - F6
-  - {t: NAV, h: toggle}
+  - Switch OS
   - SYS
   - F7
   - F8

@@ -741,9 +741,9 @@ path.combo { stroke: #7f7f7f; }
 </g>
 <g transform="translate(378, 28)" class="key keypos-6">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<a href="#NAV">
-<text x="0" y="0" class="key tap layer-activator">NAV</text>
-</a><text x="0" y="24" class="key hold">toggle</text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.6em">Switch</tspan><tspan x="0" dy="1.2em">OS</tspan>
+</text>
 </g>
 <g transform="translate(630, 28)" class="key keypos-7">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
