@@ -11,7 +11,7 @@
     "zephyr": true,
     "zmk": true,
     "modules": true,
-    "ergonautkb-zmk-module": true
-  },
-  "explorerExclude.backup": {}
+    "ergonautkb-zmk-module": true,
+    "cheapino-zmk-config-single-nicenano": true
+  }
 }
