@@ -1,21 +1,19 @@
 layout: {zmk_keyboard: adv360pro}
 layers:
-  DEF: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
-    '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
-  NAV:
+  DEF:
   - '='
   - '1'
   - '2'
   - '3'
   - '4'
   - '5'
-  - {type: trans}
-  - SYS
+  - ''
+  - ''
   - '6'
-  - KP NUM
-  - KP EQUAL
-  - KP DIVIDE
-  - KP MULTIPLY
+  - '7'
+  - '8'
+  - '9'
+  - '0'
   - '-'
   - Tab
   - Q
@@ -23,139 +21,139 @@ layers:
   - E
   - R
   - T
-  - ''
+  - Num Layer
   - ''
   - Y
-  - KP 7
-  - KP 8
-  - KP 9
-  - KP MINUS
+  - U
+  - I
+  - O
+  - P
   - \
   - Esc
-  - A
-  - S
-  - D
-  - F
+  - {t: A, h: Gui}
+  - {t: S, h: Alt}
+  - {t: D, h: Ctrl}
+  - {t: F, h: Shift}
   - G
+  - Sys Layer
   - ''
-  - Ctrl
-  - Alt
-  - Gui
-  - Ctrl
+  - ''
+  - ''
+  - ''
   - ''
   - H
-  - KP 4
-  - KP 5
-  - KP 6
-  - KP PLUS
+  - {t: J, h: Shift}
+  - {t: K, h: Ctrl}
+  - {t: L, h: Alt}
+  - {t: ;, h: Gui}
   - ''''
-  - Shift
+  - ''
   - Z
   - X
   - C
   - V
   - B
-  - Home
-  - PgUp
+  - ''
+  - ''
   - N
-  - KP 1
-  - KP 2
-  - KP 3
-  - KP ENTER
-  - Shift
-  - NUM
+  - M
+  - {t: ',', s: <}
+  - {t: ., h: Dot Space}
+  - {t: '?', s: /}
+  - ''
+  - ''
   - '`'
-  - CAPS
-  - ←
-  - →
-  - Bspc
-  - Del
-  - End
-  - PgDn
+  - ''
+  - {t: ←, h: Home}
+  - {t: →, h: End}
+  - {t: Bspc, h: Ctl+Bspc}
+  - {t: Del, h: Ctl+Del}
+  - ''
+  - ''
   - ENTER
-  - KP 0
-  - ↑
-  - ↓
-  - KP DOT
-  - {t: ']', right: '}'}
-  - NUM
+  - Spc
+  - {t: ↑, h: PgUp}
+  - {t: ↓, h: PgDn}
+  - '['
+  - ']'
+  - ''
   NUM:
+  - ''
   - F1
   - F2
   - F3
   - F4
   - F5
   - F6
-  - Switch OS
-  - SYS
   - F7
   - F8
   - F9
   - F10
   - F11
   - F12
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
   - ''
   - ''
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
   - ''
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
   - ''
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: held}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
+  - ''
+  - ''
+  - ''
+  - {t: ▽, type: trans}
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - {t: ▽, type: trans}
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
   SYS:
   - ''
   - ''
@@ -164,7 +162,6 @@ layers:
   - ''
   - ''
   - ''
-  - {type: held}
   - ''
   - ''
   - ''
@@ -173,49 +170,50 @@ layers:
   - ''
   - ''
   - ''
+  - Boot
+  - Studio Unlock
+  - ''
+  - RGB TOG
+  - RGB EFF
+  - {t: ▽, type: trans}
+  - ''
+  - ''
+  - ''
+  - ''
+  - Studio Unlock
+  - Boot
+  - ''
+  - ''
+  - BT 1
+  - BT 2
+  - BT 3
+  - BT 4
+  - BT CLR
+  - {t: ▽, type: trans}
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - BT CLR
+  - BT 4
+  - BT 3
+  - BT 2
+  - BT 1
+  - ''
+  - ''
+  - Reset
+  - ''
+  - ''
+  - BL Step
+  - BL Toggle
   - ''
   - ''
   - ''
   - ''
   - ''
   - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
+  - Reset
   - ''
   - ''
   - ''

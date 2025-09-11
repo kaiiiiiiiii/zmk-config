@@ -26,10 +26,10 @@
 #ifdef CONFIG_RGB_UNDERGLOW
   #include <dt-bindings/zmk/rgb.h>
   #define _RGB_TOG_ &rgb_ug RGB_TOG
-  #define _RGB_STEP_ &rgb_ug RGB_EFF
+  #define _RGB_EFF_ &rgb_ug RGB_EFF
 #else
   #define _RGB_TOG_ XXX
-  #define _RGB_STEP_ XXX
+  #define _RGB_EFF_ XXX
 #endif
 
 #include "zmk-helpers/helper.h"
@@ -138,7 +138,6 @@ SIMPLE_MORPH(lbkt_morph, SFT, &kp LBKT, &kp LBRC)           // tap: [ | shift + 
 SIMPLE_MORPH(rbkt_morph, SFT, &kp RBKT, &kp RBRC)           // tap: ] | shift + tap: }
 SIMPLE_MORPH(pipe_morph, SFT, &kp PIPE, &kp TILDE)          // tap: | | shift + tap: ~
 SIMPLE_MORPH(comma_morph, SFT, &kp COMMA, &kp LESS_THAN)    // tap: , | shift + tap: <
-//SIMPLE_MORPH(dot_morph, SFT, &kp DOT, &kp GREATER_THAN)     // tap: . | shift + tap: >
 
 // Tap: space | Shift + tap: dot -> space -> sticky shift | Hold: nav layer.
 ZMK_HOLD_TAP(lt_spc, bindings = <&mo>, <&spc_morph>; flavor = "balanced";

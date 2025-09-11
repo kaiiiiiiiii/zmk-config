@@ -13,7 +13,7 @@ layers:
   - O
   - P
   - '-'
-  - {t: '[', right: '{'}
+  - '['
   - {t: A, h: Gui}
   - {t: S, h: Alt}
   - {t: D, h: Ctrl}
@@ -24,7 +24,7 @@ layers:
   - {t: K, h: Ctrl}
   - {t: L, h: Alt}
   - {t: ;, h: Gui}
-  - {t: ']', right: '}'}
+  - ']'
   - {t: '|', s: '~'}
   - Z
   - X
@@ -34,7 +34,7 @@ layers:
   - N
   - M
   - {t: ',', s: <}
-  - {t: ., h: Sentence}
+  - {t: ., h: Dot Space}
   - {t: '?', s: /}
   - {t: '"', s: ''''}
   - {t: Esc, h: NAV (Win)}
@@ -42,7 +42,7 @@ layers:
   - {t: Del, h: Ctl+Del}
   - ENTER
   - Spc
-  - {t: Tab, h: NUM (Windows)}
+  - {t: Tab, h: NUM (Win)}
   DEF (Mac):
   - '='
   - Q
@@ -56,7 +56,7 @@ layers:
   - O
   - P
   - '-'
-  - {t: '[', right: '{'}
+  - '['
   - {t: A, h: Ctrl}
   - {t: S, h: Alt}
   - {t: D, h: Gui}
@@ -67,7 +67,7 @@ layers:
   - {t: K, h: Ctrl}
   - {t: L, h: Alt}
   - {t: ;, h: Gui}
-  - {t: ']', right: '}'}
+  - ']'
   - {t: '|', s: '~'}
   - Z
   - X
@@ -77,7 +77,7 @@ layers:
   - N
   - M
   - {t: ',', s: <}
-  - {t: ., h: Sentence}
+  - {t: ., h: Dot Space}
   - {t: '?', s: /}
   - {t: '"', s: ''''}
   - {t: Esc, h: NAV (Mac)}
@@ -92,7 +92,7 @@ layers:
   - ''
   - ''
   - ''
-  - $$mdi:volume-high$$
+  - VOL UP
   - PgUp
   - ''
   - {t: ↑, h: PgUp}
@@ -104,7 +104,7 @@ layers:
   - Alt
   - Ctrl
   - Shift
-  - $$mdi:volume-off$$
+  - MUTE
   - PgDn
   - {t: ←, h: Home}
   - {t: ↓, h: PgDn}
@@ -116,7 +116,7 @@ layers:
   - ''
   - ''
   - ''
-  - $$mdi:volume-medium$$
+  - VOL DN
   - ''
   - ''
   - ''
@@ -124,18 +124,18 @@ layers:
   - ''
   - ''
   - {type: held}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   NAV (Mac):
   - ''
   - ''
   - ''
   - ''
   - ''
-  - $$mdi:volume-high$$
+  - VOL UP
   - PgUp
   - ''
   - {t: ↑, h: PgUp}
@@ -147,7 +147,7 @@ layers:
   - Alt
   - Gui
   - Shift
-  - $$mdi:volume-off$$
+  - MUTE
   - PgDn
   - {t: ←, h: Home}
   - {t: ↓, h: PgDn}
@@ -159,7 +159,7 @@ layers:
   - ''
   - ''
   - ''
-  - $$mdi:volume-medium$$
+  - VOL DN
   - ''
   - ''
   - ''
@@ -167,12 +167,12 @@ layers:
   - ''
   - ''
   - {type: held}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  NUM (Windows):
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  NUM (Win):
   - '='
   - '!'
   - '@'
@@ -209,11 +209,11 @@ layers:
   - F10
   - F11
   - F12
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - {type: held}
   NUM (Mac):
   - '='
@@ -252,11 +252,11 @@ layers:
   - F10
   - F11
   - F12
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
-  - {type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - {type: held}
   SYS:
   - Boot

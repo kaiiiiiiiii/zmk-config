@@ -74,9 +74,9 @@ draw *targets:
         [ergonaut_one]=corne_rotated \
     )
     declare -A LAYER_NAMES=( \
-        [adv360pro]='"DEF" "NAV" "NUM" "SYS"' \
-        [cheapinov2]='"DEF (Win)" "DEF (Mac)" "NAV (Win)" "NAV (Mac)" "NUM (Windows)" "NUM (Mac)" "SYS"' \
-        [ergonaut_one]='"DEF (Win)" "DEF (Mac)" "NAV (Win)" "NAV (Mac)" "NUM (Windows)" "NUM (Mac)" "SYS"' \
+        [adv360pro]='"DEF" "NUM" "SYS"' \
+        [cheapinov2]='"DEF (Win)" "DEF (Mac)" "NAV (Win)" "NAV (Mac)" "NUM (Win)" "NUM (Mac)" "SYS"' \
+        [ergonaut_one]='"DEF (Win)" "DEF (Mac)" "NAV (Win)" "NAV (Mac)" "NUM (Win)" "NUM (Mac)" "SYS"' \
     )
 
     list_targets() { printf '%s\n' "${!KEYBOARDS[@]}" | sort; }

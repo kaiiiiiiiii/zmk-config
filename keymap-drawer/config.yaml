@@ -5,66 +5,25 @@ parse_config:
   raw_binding_map:
     "&sys_reset": Reset
     "&bootloader": Boot
-    "&caps_word": Caps Word
     "&studio_unlock": Studio Unlock
     "&tog MAC_DEF": Switch OS
-
-    "&d_dance": { "t": "D", "h": "Ctrl" }
-    "&k_dance": { "t": "K", "h": "Ctrl" }
 
     "&bt BT_SEL 0": BT 1
     "&bt BT_SEL 1": BT 2
     "&bt BT_SEL 2": BT 3
     "&bt BT_SEL 3": BT 4
-    "&bt BT_SEL 4": BT 5
 
-    "&kp LC(INS)": Copy
-    "&kp LC(X)": Cut
-    "&kp LS(INS)": Paste
+    "&bl BL_TOG": BL Toggle
+    "&bl BL_STEP": BL Step
 
-    "&kp LG(LC(LEFT))": Prev Desk
-    "&kp LG(LC(RIGHT))": Next Desk
-    "&kp LG(LC(LS(A)))": Pin App
-    "&kp LG(LC(LS(Q)))": Pin Win
+    "&dot_spc": Dot Space
 
-    "&swapper": Next Win
-    "&kp LS(TAB)": Prev Win
-    "&dot_spc": Sentence
+    "&tog NAV": Nav Layer
+    "&tog NUM": Num Layer
+    "&tog SYS": Sys Layer
 
-    "&hml LS(LALT)TAB": Tab
-    "&hm_combo_ldr": Leader
-    "&hm_combo_ldrsh": Shift+Leader
-    "&hm_combo_lpar": { "t": "(", "right": "<" }
-    "&hm_combo_rpar": { "t": ")", "right": ">" }
-    "&kp LBKT": { "t": "[", "right": "{" }
-    "&kp RBKT": { "t": "]", "right": "}" }
-
-    "&mmv MOVE_UP": Mouse ↑
-    "&mmv MOVE_DOWN": Mouse ↓
-    "&mmv MOVE_LEFT": Mouse ←
-    "&mmv MOVE_RIGHT": Mouse →
-
-    "&msc SCRL_UP": Scroll ↑
-    "&msc SCRL_DOWN": Scroll ↓
-    "&msc SCRL_LEFT": Scroll ←
-    "&msc SCRL_RIGHT": Scroll →
-
-    "&mkp LCLK": Left Click
-    "&mkp RCLK": Right Click
-    "&mkp MCLK": Middle Click
-    "&mkp MB4": Back Click
-    "&mkp MB5": Forward Click
-
-  trans_legend: { "t": "", "type": "trans" }
-
-  zmk_combos:
-    combo_cut: { align: bottom, o: 0.15 }
-    combo_ldrsh: { align: top, o: 1.35 }
-
-    combo_lt: { hidden: true }
-    combo_gt: { hidden: true }
-    combo_lbrc: { hidden: true }
-    combo_rbrc: { hidden: true }
+    # "&kp LBKT": { "t": "[", "s": "{" }
+    # "&kp RBKT": { "t": "]", "s": "}" }
 
   zmk_keycode_map:
     # custom mappings
@@ -94,13 +53,6 @@ parse_config:
     DOWN: ↓
     LEFT: ←
     RIGHT: →
-
-    C_MUTE: $$mdi:volume-off$$
-    C_PP: $$mdi:play-pause$$
-    C_VOL_UP: $$mdi:volume-high$$
-    C_VOL_DN: $$mdi:volume-medium$$
-    C_NEXT: $$mdi:skip-forward$$
-    C_PREV: $$mdi:skip-backward$$
 
     # defaults
     AMPERSAND: "&"
@@ -171,4 +123,6 @@ parse_config:
 draw_config:
   append_colon_to_layer_header: false
   dark_mode: auto
+  n_columns: 2
+  draw_key_sides: true
   footer_text: "kaiiiiiiiii/zmk-config"
