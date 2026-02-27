@@ -3,7 +3,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # This pins requirements.txt provided by zephyr-nix.pythonEnv.
-    zephyr.url = "github:zmkfirmware/zephyr/v3.5.0+zmk-fixes";
+    zephyr.url = "github:zmkfirmware/zephyr/v4.1.0+zmk-fixes";
     zephyr.flake = false;
 
     # Zephyr sdk and toolchain.
@@ -26,7 +26,7 @@
           packages =
             [
               zephyr.pythonEnv
-              (zephyr.sdk-0_16.override {targets = ["arm-zephyr-eabi"];})
+              (zephyr.sdk-0_17.override {targets = ["arm-zephyr-eabi"];})
 
               pkgs.cmake
               pkgs.dtc
