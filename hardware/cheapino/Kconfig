@@ -1,0 +1,11 @@
+if SHIELD_CHEAPINOV2
+
+config ZMK_BEHAVIOR_CHEAPINO_ENCODER
+    bool
+    default y
+
+config ZMK_KSCAN_CHEAPINO_GHOST_FILTER
+    bool
+    default y
+
+endif

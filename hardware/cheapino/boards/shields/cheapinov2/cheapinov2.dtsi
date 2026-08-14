@@ -1,0 +1,120 @@
+/*
+ * Cheapino v2 uses one RP2040-Zero and an RJ45 cable to extend its directed
+ * matrix to the right half. Pin assignments follow the upstream Cheapino v2
+ * QMK definition at fe770a75b87996cb89807d7de14ebf8c85e3ae3b.
+ */
+
+#include <dt-bindings/zmk/matrix_transform.h>
+#include <arm/raspberrypi/rp2040-boot-mode-retention.dtsi>
+#include "cheapinov2-layout.dtsi"
+
+&code_partition {
+    reg = <0x100 (DT_SIZE_M(2) - 0x100 - DT_SIZE_K(512))>;
+};
+
+&flash0 {
+    partitions {
+        storage_partition: partition@180000 {
+            label = "storage";
+            reg = <0x180000 DT_SIZE_K(512)>;
+            read-only;
+        };
+    };
+};
+
+/ {
+    chosen {
+        zmk,kscan = &cheapino_sideband;
+        zmk,physical-layout = &cheapino_layout;
+    };
+
+    default_transform: keymap_transform_0 {
+        compatible = "zmk,matrix-transform";
+        columns = <14>;
+        rows = <14>;
+        /*
+         * QMK scans active-low into pull-ups; ZMK scans these GPIO_ACTIVE_HIGH
+         * cells active-high into pull-downs. RC therefore follows the physical
+         * diode direction, which is the reverse of QMK's drive/sense order.
+         */
+        map = <
+            RC(4,13) RC(12,4) RC(4,12) RC(11,4) RC(4,11)   RC(0,8) RC(8,0) RC(0,9) RC(9,0) RC(0,10)
+            RC(5,13) RC(12,5) RC(5,12) RC(11,5) RC(5,11)   RC(1,8) RC(8,1) RC(1,9) RC(9,1) RC(1,10)
+            RC(6,13) RC(12,6) RC(6,12) RC(11,6) RC(6,11)   RC(2,8) RC(8,2) RC(2,9) RC(9,2) RC(2,10)
+                                RC(13,6) RC(13,5) RC(13,4)   RC(10,0) RC(10,1) RC(10,2)
+        >;
+    };
+
+    cheapino_scan: kscan0 {
+        compatible = "zmk,kscan-gpio-charlieplex";
+        debounce-press-ms = <5>;
+        debounce-release-ms = <5>;
+        poll-period-ms = <1>;
+        gpios
+            = <&gpio0 3 GPIO_ACTIVE_HIGH>
+            , <&gpio0 1 GPIO_ACTIVE_HIGH>
+            , <&gpio0 2 GPIO_ACTIVE_HIGH>
+            , <&gpio0 0 GPIO_ACTIVE_HIGH>
+            , <&gpio0 27 GPIO_ACTIVE_HIGH>
+            , <&gpio0 28 GPIO_ACTIVE_HIGH>
+            , <&gpio0 29 GPIO_ACTIVE_HIGH>
+            , <&gpio0 8 GPIO_ACTIVE_HIGH>
+            , <&gpio0 6 GPIO_ACTIVE_HIGH>
+            , <&gpio0 5 GPIO_ACTIVE_HIGH>
+            , <&gpio0 4 GPIO_ACTIVE_HIGH>
+            , <&gpio0 14 GPIO_ACTIVE_HIGH>
+            , <&gpio0 15 GPIO_ACTIVE_HIGH>
+            , <&gpio0 26 GPIO_ACTIVE_HIGH>
+            ;
+    };
+
+#include <dt-bindings/zmk/keys.h>
+
+    cheapino_filtered_scan: ghost_filtered_scan {
+        compatible = "zmk,kscan-cheapino-ghost-filter";
+        kscan = <&cheapino_scan>;
+    };
+
+    cheapino_sideband: encoder_sideband {
+        compatible = "zmk,kscan-sideband-behaviors";
+        kscan = <&cheapino_filtered_scan>;
+
+        encoder_button {
+            row = <3>;
+            column = <8>;
+            bindings = <&kp C_PLAY_PAUSE>;
+        };
+
+        encoder_a {
+            row = <3>;
+            column = <9>;
+            bindings = <&cheapino_encoder 0>;
+        };
+
+        encoder_b {
+            row = <3>;
+            column = <10>;
+            bindings = <&cheapino_encoder 1>;
+        };
+    };
+
+    behaviors {
+        cheapino_encoder: behavior_cheapino_encoder {
+            compatible = "zmk,behavior-cheapino-encoder";
+            #binding-cells = <1>;
+            mac-nav-layer = <3>;
+            mac-num-layer = <5>;
+            system-layer = <6>;
+            bindings
+                = <&kp PG_DN>, <&kp PG_UP>
+                , <&kp LC(TAB)>, <&kp LC(LS(TAB))>
+                , <&kp LG(Y)>, <&kp LG(Z)>
+                , <&kp C_VOL_UP>, <&kp C_VOL_DN>
+                ;
+        };
+    };
+};
+
+&cheapino_layout {
+    transform = <&default_transform>;
+};

@@ -1,0 +1,11 @@
+description: Cheapino v2 phantom-key filtering Kscan wrapper
+
+compatible: "zmk,kscan-cheapino-ghost-filter"
+
+include: kscan.yaml
+
+properties:
+  kscan:
+    type: phandle
+    required: true
+    description: Underlying 14-pin charlieplex Kscan device

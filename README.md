@@ -36,7 +36,7 @@ this repo:
 
 | Keyboard                                                                         | Description                                   | Keymap Diagram                                                                                                                        |
 | -------------------------------------------------------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| **[Cheapino v2](https://github.com/tompi/cheapino)**                             | `nice_nano//zmk` + `cheapinov2` shield        | <a href="keymap-drawer/cheapinov2.svg"><img src="keymap-drawer/cheapinov2.svg" height="100" alt="Cheapino v2 keymap"></a>             |
+| **[Cheapino v2](https://github.com/tompi/cheapino)**                             | `rp2040_zero` + local `cheapinov2` shield      | <a href="keymap-drawer/cheapinov2.svg"><img src="keymap-drawer/cheapinov2.svg" height="100" alt="Cheapino v2 keymap"></a>             |
 | **[Ergonaut One](https://github.com/ergonautkb/one)**                            | `xiao_ble//zmk` left/right shields             | <a href="keymap-drawer/ergonaut_one.svg"><img src="keymap-drawer/ergonaut_one.svg" height="100" alt="Ergonaut One keymap"></a>        |
 | **[Kinesis Advantage 360 Pro](https://kinesis-ergo.com/keyboards/advantage360)** | upstream `adv360pro_{left,right}//zmk` boards | <a href="keymap-drawer/adv360pro.svg"><img src="keymap-drawer/adv360pro.svg" height="100" alt="Kinesis Advantage 360 Pro keymap"></a> |
 
@@ -45,7 +45,7 @@ this repo:
 - **Cross-Platform Support**: Cheapino and Ergonaut have separate Windows and
   macOS layers; the Advantage 360 Pro intentionally uses a simpler Windows-first map.
 - **Home Row Modifiers**: Ergonomic modifier placement for efficient typing.
-- **Navigation Layers**: Dedicated layers for mouse and arrow key navigation.
+- **Navigation Layers**: Dedicated layers for arrows, paging, and media keys.
 - **Number Layers**: Quick access to numbers and function keys.
 - **Visual Keymap Diagrams**: Automatically generated SVG diagrams using
   keymap-drawer.
@@ -104,8 +104,10 @@ visualization process. Here's how everything works:
   expands). Builds firmware artifacts to `firmware/`.
 - `just draw [targets...]`: Generate visual keymap diagrams. No args or `all` →
   all known targets.
+- `just check`: Check build-matrix, hardware, Bluetooth, and keymap invariants.
 - `just clean`: Clean build artifacts.
 - `just clean-all`: Clean everything including Zephyr modules.
+- `just upgrade-dependencies`: Update all pinned Nix dependencies.
 
 #### Build Workflow
 
@@ -114,10 +116,10 @@ The build process uses `build.yaml` as a declarative matrix:
 ```yaml
 # build.yaml targets use current Zephyr board-variant syntax.
 include:
-  - board: nice_nano//zmk
+  - board: rp2040_zero
     shield: cheapinov2
     snippet: studio-rpc-usb-uart
-    artifact-name: cheapinov2-nice_nano
+    artifact-name: cheapinov2-rp2040_zero
   - board: xiao_ble//zmk
     shield: ergonaut_one_left
     artifact-name: ergonaut_one_left-xiao_ble
@@ -126,6 +128,9 @@ include:
   - board: adv360pro_left//zmk
     shield: settings_reset
     artifact-name: settings_reset-adv360pro_left
+  - board: adv360pro_right//zmk
+    shield: settings_reset
+    artifact-name: settings_reset-adv360pro_right
 ```
 
 Internals:
@@ -138,9 +143,8 @@ Internals:
 
 Keymap drawing pipeline:
 
-1. Parse keymap with `keymap parse` (includes virtual layers like Combos).
-2. Post-process combos layer using `yq`.
-3. Render with `keymap draw` to produce YAML and SVG files.
+1. Parse the keymap with `keymap parse` and explicit display-layer names.
+2. Render with `keymap draw` to produce YAML and SVG files.
 
 Metadata for layouts and keyboards is defined in the `Justfile`:
 
@@ -188,7 +192,40 @@ This repository includes GitHub Actions for automated building:
   - Uploads firmware artifacts
   - Commits refreshed diagrams only for pushes to `main`
 
-The job is configured for a self-hosted runner with Nix available.
+The workflow uses GitHub-hosted Ubuntu runners. Pull requests receive read-only
+permissions; the separate push-only diagram job receives the write permission
+needed to commit refreshed drawings. Third-party actions are pinned to commit
+SHAs.
+
+## Cheapino v2 hardware
+
+The Cheapino target matches the official v2 ordering/build documentation: one
+Waveshare RP2040-Zero on the left PCB and a normal straight-through RJ45 cable
+between the two halves. It is a single-controller USB keyboard; the RJ45 cable
+extends the directed key matrix and is not a ZMK split transport.
+
+The local module in `hardware/cheapino/` contains the upstream v2 pin mapping,
+physical layout, matrix-connected encoder integration, and the v2-specific
+phantom-key suppression masks from the official firmware. Encoder actions are:
+
+- Press: play/pause.
+- Rotate normally: Page Down/Page Up.
+- Rotate on the macOS navigation layer: next/previous tab.
+- Rotate on the macOS number layer: redo/undo.
+- Rotate on the system layer: volume up/down.
+
+To flash, hold **BOOT** while connecting the RP2040-Zero (or use its BOOT/RESET
+sequence), then copy `firmware/cheapinov2-rp2040_zero.uf2` to the mounted USB
+drive. Use a straight-through Ethernet cable; crossover cables do not match the
+Cheapino routing.
+
+## Advantage360 Pro notes
+
+The Advantage360 Pro uses the boards shipped in upstream ZMK. Both halves and
+both settings-reset images are built. Standard ZMK does not provide Kinesis's
+graphical editor or its advanced indicator-LED behavior. When repairing split
+pairing, flash the matching settings-reset image to each half, then reflash both
+normal firmware images.
 
 <a name="customization"></a>
 
@@ -205,7 +242,8 @@ The job is configured for a self-hosted runner with Nix available.
      artifact-name: <optional>
    ```
 
-2. Add the shield locally or declare the external board module in `config/west.yml`.
+2. Add board support as a local module under `hardware/` or declare an external
+   module in `config/west.yml`.
 3. Update `Justfile` draw metadata when the keyboard has a visual keymap.
 4. Run `just init`, then `just build <shield>` to test.
 

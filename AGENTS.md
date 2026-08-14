@@ -1,142 +1,80 @@
 # AI Agent Instructions for zmk-config
 
-Concise, project-specific guidance to be productive quickly## 8. When Modifying
-/ Adding Recipes
+Project-specific guidance for this personal ZMK firmware configuration.
 
-- Reuse helper functions (`_parse_targets`, `_build_single`).
-- Keep new scripts using same safety flags & artifact patterns.
-- If introducing new per-target metadata for draw, mirror existing associative
-  array approach.
-- Use absolute paths for directories to ensure consistency.
-- Follow bash best practices: `set -euo pipefail` for error handling.
-- For new build targets, update `build.yaml` with board, shield, optional
-  snippet, optional artifact-name.
-- For new draw targets, add entries to `LAYOUTS` and `KEYBOARDS` associative
-  arrays in the `draw` recipe.
-- Test new recipes with `just <recipe>` before committing.p responses focused on
-  THIS repo's workflows & conventions.
+## Repository layout
 
-## 0. Project Description
+- `build.yaml` declares all board, shield, snippet, and artifact combinations.
+- `config/` contains keymaps, per-keyboard Kconfig fragments, and `west.yml`.
+- `hardware/cheapino/` is a local Zephyr/ZMK module for the stock Cheapino v2
+  RP2040-Zero hardware and its matrix-connected encoder.
+- `Justfile` is the canonical interface for initialization, builds, validation,
+  drawing, updates, and cleanup.
+- `keymap-drawer/` contains rendering configuration and generated YAML/SVG.
+- `flake.nix` and `nix/` provide the toolchain and Python packages.
 
-This repository contains a personal ZMK (Zephyr Mechanical Keyboard) firmware
-configuration for building custom keyboard firmware. It supports multiple
-keyboards (e.g., Cheapino v2, Ergonaut One, Kinesis Advantage 360 Pro) with cross-platform OS switching
-(Windows/macOS), home row modifiers, optimized navigation, and visual keymap
-diagrams. The setup uses Nix for reproducible development environments, direnv
-for automatic activation, and Just for task automation. Key features include
-declarative build matrices, automated keymap drawing, and testing workflows.
+## Commands
 
-## 1. Purpose & Structure
+- `just init`: initialize and update the West workspace.
+- `just list`: list tuples derived from `build.yaml`.
+- `just build <literal-substring> [west args]`: build matching targets; `all`
+  selects every target. Use `-p` for pristine builds.
+- `just draw [targets...]`: draw all keymaps or the named targets.
+- `just check`: run fast repository invariant checks.
+- `just clean`: remove build directories and firmware artifacts.
+- `just clean-all`: also remove the generated West workspace and modules.
+- `just update`: update projects to revisions pinned by `config/west.yml`.
+- `just upgrade-dependencies`: update all Nix flake inputs.
 
-This repository is a personal ZMK (Zephyr Mechanical Keyboard) configuration.
-Core intent:
+The Nix shell supplies West, the Zephyr SDK, Just, keymap-drawer, and Python
+yq. Do not add ad-hoc dependency installation instructions.
 
-- Define firmware builds for multiple boards/shields via `build.yaml`.
-- Maintain keymaps (`config/*.keymap`) and shield definitions
-  (`config/boards/shields/**`).
-- Provide reproducible, isolated dev environment (Nix + direnv) and workflow
-  automation (`Justfile`).
-- Generate visual keymap diagrams with keymap-drawer (`just draw`).
+## Build conventions
 
-Key dirs/files:
+- Reuse `_parse_targets` and `_build_single` instead of invoking West directly
+  from documentation or additional recipes.
+- Use absolute directory paths and `set -euo pipefail` in Bash recipes/scripts.
+- Firmware is copied to `firmware/` as UF2 when available, otherwise BIN.
+- For a new target, update `build.yaml` and use an explicit artifact name.
+- Split central Bluetooth capacity must reserve one bond for the peripheral.
+- Provide settings-reset targets for every independently flashable split half.
 
-- `build.yaml` – Declarative build matrix (board, shield, optional snippet,
-  optional artifact-name).
-- `config/` – All ZMK config: `west.yml`, global _.conf, _.keymap, combo/leader
-  DTS includes, shield folders.
-- `config/boards/shields/<shield>/` – Shield-specific Kconfig, DTS overlays,
-  keymap, layout `.dtsi`, ZMK metadata `.zmk.yml`.
-- `Justfile` – Canonical task runner: build, draw, init, list, test, clean.
-- `keymap-drawer/` – Output (YAML + SVG) from `just draw`; includes
-  `config.yaml` for rendering settings.
-- `flake.nix` / `flake.lock` – Nix provisioning for toolchain (west, Zephyr SDK,
-  python deps, keymap-drawer, yq, etc.).
+## Hardware conventions
 
-## 2. Build Workflow
+- Keep reusable/out-of-tree hardware in a proper Zephyr module, not under the
+  deprecated `config/boards` or `config/dts` paths.
+- Scope every shield Kconfig default with its `SHIELD_*` condition.
+- The Cheapino target is the stock v2 design: one RP2040-Zero and an RJ45 matrix
+  cable. Do not reintroduce the single-Nice-Nano proof-of-concept module.
+- Changes to the Cheapino matrix must be checked against the official v2 QMK
+  pin map and must preserve encoder sideband coordinates.
 
-Primary command interface is `just` (never hardcode raw west unless necessary):
+## Drawing conventions
 
-- `just init` – Initialize Zephyr workspace (west init + update + export).
-- `just list` – Show all build target tuples derived from `build.yaml`.
-- `just build <expr>` – Filter targets (case-insensitive substring match; `all`
-  expands). Pass extra west args after expression, e.g. `just build all -p` for
-  pristine.
-- Internals: `_parse_targets` (yq + combinations) → lines of
-  `board,shield,snippet,artifact`. `_build_single` invokes `west build` with
-  `-DZMK_CONFIG=config` and optional `-DSHIELD` / snippet (`-S`). Output
-  artifact copied to `firmware/` as `.uf2` if present else `.bin`.
-- Clean: `just clean` (build + firmware) / `just clean-all` (also .west + zmk
-  modules) / `just clean-nix` (GC nix store).
+- Add target metadata to the `LAYOUTS`, `KEYBOARDS`, and `LAYER_NAMES`
+  associative arrays in the `draw` recipe.
+- Keep layer names pipe-delimited so the recipe can form an argument array
+  without `eval`.
+- Generated `<name>.yaml` and `<name>.svg` files are committed.
 
-## 3. Drawing Keymaps
+## Change validation
 
-- `just draw [targets...]` – Variadic. No args or `all` → all known targets.
-- Metadata maps inside recipe: `LAYOUTS[name]`, `KEYBOARDS[name]` provide `-l`
-  and `-k` for keymap-drawer.
-- Pipeline per target: parse (`keymap parse -z ... --virtual-layers Combos`) →
-  post-process combos layer via `yq` (best-effort) → render (`keymap draw`).
-  Produces `<name>.yaml` + `<name>.svg` in `keymap-drawer/`.
-- Add target: create `config/<name>.keymap`, extend arrays in `Justfile`.
+Run at minimum:
 
-## 4. Testing Flow
+```bash
+just check
+just draw all
+just build <affected-target> -p
+```
 
-- `just test <relative/path/to/test-config-dir> [--no-build] [--verbose] [--auto-accept]`.
-- Builds native_posix_64 with assertions unless `--no-build` present.
-- Runs produced `zmk.exe`, normalizes output, filters through `events.patterns`,
-  diffs against `keycode_events.snapshot` (golden). `--auto-accept` updates
-  snapshot.
-- Place test assets (patterns, snapshot) in the specified directory (mirrors ZMK
-  event testing style).
+For build-system, shared-keymap, or dependency changes, run
+`just build all -p`. Keep diffs focused and update the README for user-visible
+workflow or flashing changes.
 
-## 5. Conventions & Patterns
+## Safety
 
-- Keymap naming: `<target>.keymap` at repo root `config/` for draw;
-  shield-specific variants live under shield folders (left/right) for firmware
-  builds.
-- Firmware artifact naming: `${shield// /+}-${board}` unless overridden by
-  `artifact-name` in `build.yaml`.
-- Use yq (v4) for YAML, prefer in-place `-Yi` edits.
-- Fail fast in scripts: `set -euo pipefail` used consistently.
-- Virtual Combos layer labeled "Combos"; draw recipe tolerates absence of combos
-  (stderr suppressed for yq edit).
-
-## 6. External Dependencies
-
-Provisioned by Nix (do NOT add ad-hoc install steps): west, Zephyr SDK,
-keymap-drawer CLI (`keymap`), `yq`, toolchain for cross-compilation. Rely on
-environment activation via direnv; commands assume it's active.
-
-## 7. Common Tasks (Examples)
-
-- Build everything pristine: `just build all -p`.
-- Build only cheapinov2 targets: `just build cheapinov2`.
-- Draw both keymaps: `just draw` (implicit all) or
-  `just draw cheapinov2 ergonaut_one`.
-- Add new board+shield: extend `build.yaml`, then `just build <substring>`.
-- Update dependencies: `just update` (west), `just upgrade-sdk` (flake inputs &
-  Python deps).
-
-## 8. When Modifying / Adding Recipes
-
-- Reuse helper functions (`_parse_targets`, `_build_single`).
-- Keep new scripts using same safety flags & artifact patterns.
-- If introducing new per-target metadata for draw, mirror existing associative
-  array approach.
-
-## 9. Non-Goals / Avoid
-
-- Don't embed secret material; repo is config only.
-- Don't bypass `Justfile` with bespoke shell in docs; keep workflows
-  centralized.
-- No speculative refactors to upstream ZMK modules here; this repo configures
-  them.
-
-## 10. PR Guidance (for agents)
-
-- Minimal, focused diffs; preserve established style.
-- Update README if user-facing workflow changes (esp. `Justfile` recipes or
-  build matrix behavior).
-- Run a representative build (`just build <one target>`) or test
-  (`just test ...`) after altering config logic.
-
-Feedback welcome: clarify anything unclear before large changes.
+- Never embed credentials or runner registration tokens.
+- CI for pull requests must use GitHub-hosted runners with read-only contents
+  permission. Isolate any write permission in a trusted push-only job.
+- Pin third-party GitHub Actions to full commit SHAs.
+- Do not add project recipes that perform global Nix garbage collection.

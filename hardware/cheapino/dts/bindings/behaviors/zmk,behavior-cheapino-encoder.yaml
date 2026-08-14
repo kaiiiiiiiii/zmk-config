@@ -1,0 +1,19 @@
+description: Cheapino matrix-connected encoder behavior
+
+compatible: "zmk,behavior-cheapino-encoder"
+
+include: one_param.yaml
+
+properties:
+  bindings:
+    type: phandle-array
+    required: true
+  mac-nav-layer:
+    type: int
+    required: true
+  mac-num-layer:
+    type: int
+    required: true
+  system-layer:
+    type: int
+    required: true

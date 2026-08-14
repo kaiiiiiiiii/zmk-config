@@ -1,0 +1,2 @@
+config SHIELD_CHEAPINOV2
+    def_bool $(shields_list_contains,cheapinov2)

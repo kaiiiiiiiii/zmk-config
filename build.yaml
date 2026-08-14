@@ -1,9 +1,12 @@
 include:
   # Cheapino V2
-  - board: nice_nano//zmk
+  - board: rp2040_zero
     shield: cheapinov2
     snippet: studio-rpc-usb-uart
-    artifact-name: cheapinov2-nice_nano
+    artifact-name: cheapinov2-rp2040_zero
+  - board: rp2040_zero
+    shield: cheapinov2 settings_reset
+    artifact-name: settings_reset-rp2040_zero
   # Ergonaut One
   - board: xiao_ble//zmk
     shield: ergonaut_one_left
@@ -22,3 +25,6 @@ include:
   - board: adv360pro_left//zmk
     shield: settings_reset
     artifact-name: settings_reset-adv360pro_left
+  - board: adv360pro_right//zmk
+    shield: settings_reset
+    artifact-name: settings_reset-adv360pro_right

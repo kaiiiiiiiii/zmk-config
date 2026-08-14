@@ -5,13 +5,17 @@ config := absolute_path('config')
 build := absolute_path('.build')
 out := absolute_path('firmware')
 draw := absolute_path('keymap-drawer')
+hardware := absolute_path('hardware/cheapino')
 
 # parse build.yaml and filter targets by expression
 _parse_targets $expr:
     #!/usr/bin/env bash
+    set -euo pipefail
     attrs="[.board, .shield, .snippet, .\"artifact-name\"]"
     filter="(($attrs | map(. // [.]) | combinations), ((.include // {})[] | $attrs)) | join(\",\")"
-    echo "$(yq -r "$filter" build.yaml | grep -v "^," | grep -i "${expr/#all/.*}")"
+    needle="${expr,,}"
+    yq -r "$filter" build.yaml |
+        awk -v needle="$needle" '!/^,/ && (needle == "all" || index(tolower($0), needle))'
 
 # build firmware for single board & shield combination
 _build_single $board $shield $snippet $artifact *west_args:
@@ -22,7 +26,7 @@ _build_single $board $shield $snippet $artifact *west_args:
 
     echo "Building firmware for $artifact..."
     ZEPHYR_BASE="{{ absolute_path('zephyr') }}" west build -s zmk/app -d "$build_dir" -b "$board" {{ west_args }} ${snippet:+-S "$snippet"} -- \
-        -DZMK_CONFIG="{{ config }}" ${shield:+-DSHIELD="$shield"}
+        -DZMK_CONFIG="{{ config }}" -DZMK_EXTRA_MODULES="{{ hardware }}" ${shield:+-DSHIELD="$shield"}
 
     if [[ -f "$build_dir/zephyr/zmk.uf2" ]]; then
         mkdir -p "{{ out }}" && cp "$build_dir/zephyr/zmk.uf2" "{{ out }}/$artifact.uf2"
@@ -31,10 +35,10 @@ _build_single $board $shield $snippet $artifact *west_args:
     fi
 
 # build firmware for matching targets
-build expr *west_args:
+build $expr *west_args:
     #!/usr/bin/env bash
     set -euo pipefail
-    targets=$(just _parse_targets {{ expr }})
+    targets=$(just _parse_targets "$expr")
 
     [[ -z $targets ]] && echo "No matching targets found. Aborting..." >&2 && exit 1
     echo "$targets" | while IFS=, read -r board shield snippet artifact; do
@@ -43,22 +47,28 @@ build expr *west_args:
 
 # clear build cache and artifacts
 clean:
-    rm -rf {{ build }} {{ out }}
+    #!/usr/bin/env bash
+    set -euo pipefail
+    rm -rf "{{ build }}" "{{ out }}"
 
 # clear all automatically generated files
 clean-all: clean
-    rm -rf .west zmk
-
-# clear nix cache
-clean-nix:
-    nix-collect-garbage --delete-old
+    #!/usr/bin/env bash
+    set -euo pipefail
+    rm -rf \
+        "{{ absolute_path('.west') }}" \
+        "{{ absolute_path('zmk') }}" \
+        "{{ absolute_path('zephyr') }}" \
+        "{{ absolute_path('modules') }}" \
+        "{{ absolute_path('optional') }}" \
+        "{{ absolute_path('ergonautkb-zmk-module') }}"
 
 # parse & plot keymaps
 # Usage examples:
 #   just draw ergonaut_one              # draw only ergonaut_one
 #   just draw cheapinov2 ergonaut_one   # draw both (explicit)
 #   just draw all                       # draw all known targets
-#   just draw                           # draw all (implicit)
+# just draw                           # draw all (implicit)
 draw *targets:
     #!/usr/bin/env bash
     set -euo pipefail
@@ -74,9 +84,9 @@ draw *targets:
         [ergonaut_one]=corne_rotated \
     )
     declare -A LAYER_NAMES=( \
-        [adv360pro]='"DEF" "NUM" "SYS"' \
-        [cheapinov2]='"DEF (Win)" "DEF (Mac)" "NAV (Win)" "NAV (Mac)" "NUM (Win)" "NUM (Mac)" "SYS"' \
-        [ergonaut_one]='"DEF (Win)" "DEF (Mac)" "NAV (Win)" "NAV (Mac)" "NUM (Win)" "NUM (Mac)" "SYS"' \
+        [adv360pro]='DEF|NUM|SYS' \
+        [cheapinov2]='DEF (Win)|DEF (Mac)|NAV (Win)|NAV (Mac)|NUM (Win)|NUM (Mac)|SYS' \
+        [ergonaut_one]='DEF (Win)|DEF (Mac)|NAV (Win)|NAV (Mac)|NUM (Win)|NUM (Mac)|SYS' \
     )
 
     list_targets() { printf '%s\n' "${!KEYBOARDS[@]}" | sort; }
@@ -91,7 +101,7 @@ draw *targets:
             echo -n "Valid targets: " >&2; list_targets >&2; echo "(or 'all')" >&2
             return 1
         fi
-        echo "Drawing keymap: $name (keyboard=$keyboard layout=$layout layer_names=$layer_names)"
+        echo "Drawing keymap: $name (keyboard=$keyboard layout=$layout)"
         local keymap_file="{{ config }}/$name.keymap"
         if [[ ! -f "$keymap_file" ]]; then
             echo "Missing keymap file: $keymap_file" >&2
@@ -99,9 +109,10 @@ draw *targets:
         fi
         local yaml_out="{{ draw }}/$name.yaml"
         local svg_out="{{ draw }}/$name.svg"
-        eval "keymap -c '{{ draw }}/config.yaml' parse -z '$keymap_file' --virtual-layers Combos --layer-names $layer_names > '$yaml_out'"
-        # Attach virtual Combos layer to all combos for drawing (ignore errors if no combos)
-        yq -Yi '.combos.[].l = ["Combos"]' "$yaml_out" 2>/dev/null || true
+        local -a layer_name_args
+        IFS='|' read -r -a layer_name_args <<< "$layer_names"
+        keymap -c "{{ draw }}/config.yaml" parse -z "$keymap_file" \
+            --layer-names "${layer_name_args[@]}" >"$yaml_out"
         # Build draw arguments; omit -l when layout is empty
         draw_args=()
         [[ -n "$keyboard" ]] && draw_args+=("-z" "$keyboard")
@@ -173,6 +184,10 @@ list:
 update:
     west update --fetch-opt=--filter=blob:none
 
-# upgrade zephyr-sdk and python dependencies
-upgrade-sdk:
+# update all pinned Nix dependencies
+upgrade-dependencies:
     nix flake update --flake .
+
+# check repository invariants without compiling firmware
+check:
+    bash "{{ absolute_path('scripts/check-config.sh') }}"

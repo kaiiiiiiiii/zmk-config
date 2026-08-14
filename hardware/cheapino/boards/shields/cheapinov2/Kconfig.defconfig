@@ -1,0 +1,6 @@
+if SHIELD_CHEAPINOV2
+
+config ZMK_KEYBOARD_NAME
+    default "Cheapino v2"
+
+endif

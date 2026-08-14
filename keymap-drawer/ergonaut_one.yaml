@@ -64,9 +64,9 @@ layers:
   - G
   - H
   - {t: J, h: Shift}
-  - {t: K, h: Ctrl}
+  - {t: K, h: Gui}
   - {t: L, h: Alt}
-  - {t: ;, h: Gui}
+  - {t: ;, h: Ctrl}
   - ']'
   - {t: '|', s: '~'}
   - Z
@@ -81,7 +81,7 @@ layers:
   - {t: '?', s: /}
   - {t: '"', s: ''''}
   - {t: Esc, h: NAV (Mac)}
-  - {t: Bspc, h: Ctl+Bspc}
+  - {t: Bspc, h: Alt+Bspc}
   - {t: Del, h: Alt+Del}
   - ENTER
   - Spc
@@ -301,5 +301,3 @@ layers:
   - ''
   - ''
   - {type: held}
-  Combos: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
-    '', '', '', '']
