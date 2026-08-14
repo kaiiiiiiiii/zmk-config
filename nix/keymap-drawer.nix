@@ -4,7 +4,7 @@
 , callPackage
 , fetchFromGitHub
 , setuptools
-, poetry-core
+, hatchling
 , pydantic
 , pyparsing
 , pcpp
@@ -18,17 +18,17 @@ let
 in
 buildPythonApplication rec {
   pname = "keymap-drawer";
-  version = "0.22.1";
+  version = "0.23.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "caksoylar";
     repo = pname;
-    rev = "afd87c7268edc26dc293380debeab0b7d3a52cf8";
-    hash = "sha256-X3O5yspEdey03YQ6JsYN/DE9NUiq148u1W6LQpUQ3ns=";
+    rev = "e855a57cf6f5851b8235b56a69d46fa0646b26e8";
+    hash = "sha256-j5X7ZFlaDAbf6+AtlB/qpD+lX7YDUM/op4BNpSpzapI=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [ hatchling ];
 
   propagatedBuildInputs = [
     pydantic

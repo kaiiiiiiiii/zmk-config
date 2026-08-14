@@ -187,16 +187,16 @@ layers:
   - BT 1
   - BT 2
   - BT 3
-  - BT 4
   - BT CLR
+  - ''
   - {t: ▽, type: trans}
   - ''
   - ''
   - ''
   - ''
   - ''
+  - ''
   - BT CLR
-  - BT 4
   - BT 3
   - BT 2
   - BT 1
@@ -205,7 +205,7 @@ layers:
   - Reset
   - ''
   - ''
-  - BL Step
+  - '&bl BL_INC'
   - BL Toggle
   - ''
   - ''

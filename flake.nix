@@ -26,11 +26,13 @@
           packages =
             [
               zephyr.pythonEnv
-              (zephyr.sdk-0_17.override {targets = ["arm-zephyr-eabi"];})
+              (zephyr.sdk-0_16.override {targets = ["arm-zephyr-eabi"];})
 
               pkgs.cmake
               pkgs.dtc
               pkgs.ninja
+              pkgs.protobuf
+              pkgs.python3Packages.protobuf
 
               pkgs.just
               pkgs.yq # Make sure yq resolves to python-yq.

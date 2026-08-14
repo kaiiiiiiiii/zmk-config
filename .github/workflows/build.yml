@@ -11,6 +11,15 @@ on:
       - "flake.lock"
       - "config/west.yml"
       - ".github/workflows/build.yml"
+  pull_request:
+    paths:
+      - "config/**"
+      - "build.yaml"
+      - "Justfile"
+      - "flake.nix"
+      - "flake.lock"
+      - "config/west.yml"
+      - ".github/workflows/build.yml"
   workflow_dispatch:
 
 permissions:
@@ -37,9 +46,11 @@ jobs:
             .west
             zmk
             zephyr
-          key:
-            west-workspace-${{ hashFiles('config/west.yml') }}-${{
-            hashFiles('flake.lock') }}-${{ github.run_number }}
+            modules
+            optional
+            ergonautkb-zmk-module
+            cheapino-zmk-config-single-nicenano
+          key: west-workspace-${{ hashFiles('config/west.yml') }}-${{ hashFiles('flake.lock') }}
           restore-keys: |
             west-workspace-${{ hashFiles('config/west.yml') }}-${{ hashFiles('flake.lock') }}-
             west-workspace-${{ hashFiles('config/west.yml') }}-
@@ -62,6 +73,7 @@ jobs:
         run: nix develop --command bash -lc 'just draw all'
 
       - name: Commit keymap drawings
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"

@@ -21,7 +21,7 @@ _build_single $board $shield $snippet $artifact *west_args:
     build_dir="{{ build / '$artifact' }}"
 
     echo "Building firmware for $artifact..."
-    west build -s zmk/app -d "$build_dir" -b $board {{ west_args }} ${snippet:+-S "$snippet"} -- \
+    ZEPHYR_BASE="{{ absolute_path('zephyr') }}" west build -s zmk/app -d "$build_dir" -b "$board" {{ west_args }} ${snippet:+-S "$snippet"} -- \
         -DZMK_CONFIG="{{ config }}" ${shield:+-DSHIELD="$shield"}
 
     if [[ -f "$build_dir/zephyr/zmk.uf2" ]]; then
