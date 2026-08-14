@@ -6,9 +6,9 @@
 [![Just](https://img.shields.io/badge/Just-000000?style=for-the-badge&logo=gnu&logoColor=white)](https://just.systems/)
 
 A personal ZMK (Zephyr Mechanical Keyboard) firmware configuration repository
-for building custom keyboard firmware. This setup supports multiple keyboards
-(e.g., Cheapino v2, Ergonaut One) with features like OS-aware home row
-modifiers, platform-optimized navigation, and automated visual keymap diagrams.
+for building custom keyboard firmware. It supports a Cheapino v2, Ergonaut One,
+and stock Kinesis Advantage 360 Pro with OS-aware home row modifiers,
+platform-optimized navigation, and automated visual keymap diagrams.
 
 The development environment is streamlined using Nix for reproducible isolation,
 direnv for automatic environment activation, and Just for task automation. It
@@ -34,15 +34,16 @@ with keymap-drawer.
 Generated diagrams (via `just draw`) for the keyboards currently configured in
 this repo:
 
-| Keyboard                                              | Description                                   | Keymap Diagram                                                                                                                 |
-| ----------------------------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| **[Cheapino v2](https://github.com/tompi/cheapino)**  | nice_nano_v2 shield                           | <a href="keymap-drawer/cheapinov2.svg"><img src="keymap-drawer/cheapinov2.svg" height="100" alt="Cheapino v2 keymap"></a>      |
-| **[Ergonaut One](https://github.com/ergonautkb/one)** | seeeduino_xiao_ble shield (left/right halves) | <a href="keymap-drawer/ergonaut_one.svg"><img src="keymap-drawer/ergonaut_one.svg" height="100" alt="Ergonaut One keymap"></a> |
+| Keyboard                                                                         | Description                                   | Keymap Diagram                                                                                                                        |
+| -------------------------------------------------------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| **[Cheapino v2](https://github.com/tompi/cheapino)**                             | `nice_nano//zmk` + `cheapinov2` shield        | <a href="keymap-drawer/cheapinov2.svg"><img src="keymap-drawer/cheapinov2.svg" height="100" alt="Cheapino v2 keymap"></a>             |
+| **[Ergonaut One](https://github.com/ergonautkb/one)**                            | `xiao_ble//zmk` left/right shields             | <a href="keymap-drawer/ergonaut_one.svg"><img src="keymap-drawer/ergonaut_one.svg" height="100" alt="Ergonaut One keymap"></a>        |
+| **[Kinesis Advantage 360 Pro](https://kinesis-ergo.com/keyboards/advantage360)** | upstream `adv360pro_{left,right}//zmk` boards | <a href="keymap-drawer/adv360pro.svg"><img src="keymap-drawer/adv360pro.svg" height="100" alt="Kinesis Advantage 360 Pro keymap"></a> |
 
 ## 🛠️ Features
 
-- **Cross-Platform Support**: Separate layers for Windows and macOS with
-  OS-specific shortcuts and behaviors.
+- **Cross-Platform Support**: Cheapino and Ergonaut have separate Windows and
+  macOS layers; the Advantage 360 Pro intentionally uses a simpler Windows-first map.
 - **Home Row Modifiers**: Ergonomic modifier placement for efficient typing.
 - **Navigation Layers**: Dedicated layers for mouse and arrow key navigation.
 - **Number Layers**: Quick access to numbers and function keys.
@@ -111,15 +112,20 @@ visualization process. Here's how everything works:
 The build process uses `build.yaml` as a declarative matrix:
 
 ```yaml
-# Example build.yaml
-builds:
-  - board: nice_nano_v2
+# build.yaml targets use current Zephyr board-variant syntax.
+include:
+  - board: nice_nano//zmk
     shield: cheapinov2
-    artifact-name: cheapino-v2
-  - board: seeeduino_xiao_ble
+    snippet: studio-rpc-usb-uart
+    artifact-name: cheapinov2-nice_nano
+  - board: xiao_ble//zmk
     shield: ergonaut_one_left
-  - board: seeeduino_xiao_ble
-    shield: ergonaut_one_right
+    artifact-name: ergonaut_one_left-xiao_ble
+  - board: adv360pro_left//zmk
+    artifact-name: adv360pro_left
+  - board: adv360pro_left//zmk
+    shield: settings_reset
+    artifact-name: settings_reset-adv360pro_left
 ```
 
 Internals:
@@ -139,8 +145,8 @@ Keymap drawing pipeline:
 Metadata for layouts and keyboards is defined in the `Justfile`:
 
 ```bash
-LAYOUTS["cheapinov2"]="config/boards/shields/cheapinov2/cheapinov2-layout.dtsi"
-KEYBOARDS["cheapinov2"]="config/boards/shields/cheapinov2/cheapinov2.zmk.yml"
+LAYOUTS["cheapinov2"]=LAYOUT_split_3x5_3
+KEYBOARDS["cheapinov2"]=corne_rotated
 ```
 
 ### Example Workflows
@@ -149,18 +155,21 @@ Build all targets:
 
 ```bash
 just build all -p  # Pristine build
+# or build a specific keyboard
+just build adv360pro
 ```
 
 Build specific keyboard:
 
 ```bash
 just build cheapinov2
+just build adv360pro
 ```
 
 Draw keymaps:
 
 ```bash
-just draw cheapinov2 ergonaut_one
+just draw cheapinov2 ergonaut_one adv360pro
 ```
 
 <a name="github-actions"></a>
@@ -171,15 +180,15 @@ This repository includes GitHub Actions for automated building:
 
 ### Build Firmware
 
-- **Trigger**: Push to main or pull requests
+- **Trigger**: Pushes to `main`, pull requests, and manual dispatch
 - **Workflow**: `build.yml`
 - **Actions**:
-  - Sets up Nix environment
-  - Builds firmware for all targets in `build.yaml`
-  - Uploads artifacts
+  - Sets up the pinned Nix environment and West workspace
+  - Builds every target in `build.yaml` and generates diagrams
+  - Uploads firmware artifacts
+  - Commits refreshed diagrams only for pushes to `main`
 
-To use GitHub Actions, ensure your repository has the necessary secrets and that
-Nix is available in the runner environment.
+The job is configured for a self-hosted runner with Nix available.
 
 <a name="customization"></a>
 
@@ -196,9 +205,9 @@ Nix is available in the runner environment.
      artifact-name: <optional>
    ```
 
-2. Create shield configuration in `config/boards/shields/<shield>/`
-3. Update `Justfile` with layout and keyboard metadata
-4. Run `just build <shield>` to test
+2. Add the shield locally or declare the external board module in `config/west.yml`.
+3. Update `Justfile` draw metadata when the keyboard has a visual keymap.
+4. Run `just init`, then `just build <shield>` to test.
 
 ### Modifying Keymaps
 

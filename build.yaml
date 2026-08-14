@@ -1,13 +1,24 @@
 include:
   # Cheapino V2
-  - board: nice_nano_v2
+  - board: nice_nano//zmk
     shield: cheapinov2
     snippet: studio-rpc-usb-uart
+    artifact-name: cheapinov2-nice_nano
   # Ergonaut One
-  - board: seeeduino_xiao_ble
+  - board: xiao_ble//zmk
     shield: ergonaut_one_left
-  - board: seeeduino_xiao_ble
+    artifact-name: ergonaut_one_left-xiao_ble
+  - board: xiao_ble//zmk
     shield: ergonaut_one_right
-  # Settings reset
-  - board: seeeduino_xiao_ble
+    artifact-name: ergonaut_one_right-xiao_ble
+  - board: xiao_ble//zmk
     shield: settings_reset
+    artifact-name: settings_reset-xiao_ble
+  # Kinesis Advantage 360 Pro
+  - board: adv360pro_left//zmk
+    artifact-name: adv360pro_left
+  - board: adv360pro_right//zmk
+    artifact-name: adv360pro_right
+  - board: adv360pro_left//zmk
+    shield: settings_reset
+    artifact-name: settings_reset-adv360pro_left

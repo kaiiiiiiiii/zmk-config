@@ -21,7 +21,7 @@ _build_single $board $shield $snippet $artifact *west_args:
     build_dir="{{ build / '$artifact' }}"
 
     echo "Building firmware for $artifact..."
-    west build -s zmk/app -d "$build_dir" -b $board {{ west_args }} ${snippet:+-S "$snippet"} -- \
+    ZEPHYR_BASE="{{ absolute_path('zephyr') }}" west build -s zmk/app -d "$build_dir" -b "$board" {{ west_args }} ${snippet:+-S "$snippet"} -- \
         -DZMK_CONFIG="{{ config }}" ${shield:+-DSHIELD="$shield"}
 
     if [[ -f "$build_dir/zephyr/zmk.uf2" ]]; then
@@ -62,28 +62,36 @@ clean-nix:
 draw *targets:
     #!/usr/bin/env bash
     set -euo pipefail
+    set -- {{ targets }}
     # Per-target metadata
     declare -A LAYOUTS=( \
-        [ergonaut_one]=LAYOUT_split_3x6_3 \
         [cheapinov2]=LAYOUT_split_3x5_3 \
+        [ergonaut_one]=LAYOUT_split_3x6_3 \
     )
     declare -A KEYBOARDS=( \
-        [ergonaut_one]=corne_rotated \
+        [adv360pro]=adv360pro \
         [cheapinov2]=corne_rotated \
+        [ergonaut_one]=corne_rotated \
+    )
+    declare -A LAYER_NAMES=( \
+        [adv360pro]='"DEF" "NUM" "SYS"' \
+        [cheapinov2]='"DEF (Win)" "DEF (Mac)" "NAV (Win)" "NAV (Mac)" "NUM (Win)" "NUM (Mac)" "SYS"' \
+        [ergonaut_one]='"DEF (Win)" "DEF (Mac)" "NAV (Win)" "NAV (Mac)" "NUM (Win)" "NUM (Mac)" "SYS"' \
     )
 
-    list_targets() { printf '%s\n' "${!LAYOUTS[@]}" | sort; }
+    list_targets() { printf '%s\n' "${!KEYBOARDS[@]}" | sort; }
 
     draw_one() {
         local name="$1"
         local layout="${LAYOUTS[$name]:-}"
         local keyboard="${KEYBOARDS[$name]:-}"
-        if [[ -z "$layout" || -z "$keyboard" ]]; then
+        local layer_names="${LAYER_NAMES[$name]:-}"
+        if [[ -z "$layer_names" || -z "$keyboard" ]]; then
             echo "Unknown draw target: $name" >&2
             echo -n "Valid targets: " >&2; list_targets >&2; echo "(or 'all')" >&2
             return 1
         fi
-        echo "Drawing keymap: $name (keyboard=$keyboard layout=$layout)"
+        echo "Drawing keymap: $name (keyboard=$keyboard layout=$layout layer_names=$layer_names)"
         local keymap_file="{{ config }}/$name.keymap"
         if [[ ! -f "$keymap_file" ]]; then
             echo "Missing keymap file: $keymap_file" >&2
@@ -91,10 +99,15 @@ draw *targets:
         fi
         local yaml_out="{{ draw }}/$name.yaml"
         local svg_out="{{ draw }}/$name.svg"
-        keymap -c "{{ draw }}/config.yaml" parse -z "$keymap_file" --virtual-layers Combos --layer-names "Base (Windows)" "Base (Mac)" "Navigation (Windows)" "Navigation (Mac)" "Number (Windows)" "Number (Mac)" "System" >"$yaml_out"
+        eval "keymap -c '{{ draw }}/config.yaml' parse -z '$keymap_file' --virtual-layers Combos --layer-names $layer_names > '$yaml_out'"
         # Attach virtual Combos layer to all combos for drawing (ignore errors if no combos)
         yq -Yi '.combos.[].l = ["Combos"]' "$yaml_out" 2>/dev/null || true
-        keymap -c "{{ draw }}/config.yaml" draw "$yaml_out" -k "$keyboard" -l "$layout" >"$svg_out"
+        # Build draw arguments; omit -l when layout is empty
+        draw_args=()
+        [[ -n "$keyboard" ]] && draw_args+=("-z" "$keyboard")
+        [[ -n "$layout" ]] && draw_args+=("-l" "$layout")
+
+        keymap -c "{{ draw }}/config.yaml" draw "$yaml_out" "${draw_args[@]}" >"$svg_out"
     }
 
     # If no targets supplied treat as 'all'
@@ -102,7 +115,21 @@ draw *targets:
         set -- all
     fi
 
-    # Expand 'all' (can be combined with explicit names)
+    # Disallow mixing 'all' with explicit targets
+    if [[ $# -gt 1 ]]; then
+        for t in "$@"; do
+            if [[ $t == all ]]; then
+                echo "Error: 'all' cannot be combined with explicit targets." >&2
+                echo "Usage:" >&2
+                echo "  just draw                    # draw all" >&2
+                echo "  just draw all                # draw all" >&2
+                echo "  just draw TARGET [TARGET...] # draw only specified targets" >&2
+                echo -n "Valid targets: " >&2; list_targets >&2
+                exit 2
+            fi
+        done
+    fi
+
     expanded=()
     for t in "$@"; do
         if [[ $t == all ]]; then
@@ -149,31 +176,3 @@ update:
 # upgrade zephyr-sdk and python dependencies
 upgrade-sdk:
     nix flake update --flake .
-
-[no-cd]
-test $testpath *FLAGS:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    testcase=$(basename "$testpath")
-    build_dir="{{ build / "tests" / '$testcase' }}"
-    config_dir="{{ '$(pwd)' / '$testpath' }}"
-    cd {{ justfile_directory() }}
-
-    if [[ "{{ FLAGS }}" != *"--no-build"* ]]; then
-        echo "Running $testcase..."
-        rm -rf "$build_dir"
-        west build -s zmk/app -d "$build_dir" -b native_posix_64 -- \
-            -DCONFIG_ASSERT=y -DZMK_CONFIG="$config_dir"
-    fi
-
-    ${build_dir}/zephyr/zmk.exe | sed -e "s/.*> //" |
-        tee ${build_dir}/keycode_events.full.log |
-        sed -n -f ${config_dir}/events.patterns > ${build_dir}/keycode_events.log
-    if [[ "{{ FLAGS }}" == *"--verbose"* ]]; then
-        cat ${build_dir}/keycode_events.log
-    fi
-
-    if [[ "{{ FLAGS }}" == *"--auto-accept"* ]]; then
-        cp ${build_dir}/keycode_events.log ${config_dir}/keycode_events.snapshot
-    fi
-    diff -auZ ${config_dir}/keycode_events.snapshot ${build_dir}/keycode_events.log

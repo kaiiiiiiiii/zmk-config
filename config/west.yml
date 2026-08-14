@@ -7,19 +7,35 @@ manifest:
       url-base: https://github.com/urob
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
+    - name: ergonautkb
+      url-base: https://github.com/ergonautkb
+    - name: tompi
+      url-base: https://github.com/tompi
   projects:
     - name: zmk
       remote: zmkfirmware
-      revision: main
+      # Upstream ZMK main as of 2026-08-14. Pin this so clean builds are
+      # reproducible; advance it deliberately when upgrading ZMK.
+      revision: 6e2ef41e022d555b10f116e395832913f71717b3
       import: app/west.yml
     # ZMK modules
     - name: zmk-adaptive-key
       path: modules/zmk/adaptive-key
     - name: zmk-auto-layer
       path: modules/zmk/auto-layer
+      # v0.3 predates the current ZMK layer-activation API.
+      revision: 62c201934711369d50a28df12e1d055d05cb6460
     - name: zmk-helpers
       path: modules/zmk/helpers
     - name: zmk-leader-key
       path: modules/zmk/leader-key
+    # Hardware modules for configurations that no longer live in this repo.
+    # These are the newest available commits as of 2026-08-14.
+    - name: ergonautkb-zmk-module
+      remote: ergonautkb
+      revision: 0baf6fb036595f4c16bde895b8804123e6b4cf0d
+    - name: cheapino-zmk-config-single-nicenano
+      remote: tompi
+      revision: 7b56e6bef387b1679f52b71622afc3265965ef3c
   self:
     path: config

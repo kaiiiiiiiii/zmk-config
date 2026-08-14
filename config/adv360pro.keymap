@@ -1,0 +1,36 @@
+#define CONFIG_WIRELESS
+#define CONFIG_BACKLIGHT
+#define CONFIG_RGB_UNDERGLOW
+
+#include "zmk-helpers/key-labels/adv360.h"
+#include "base.keymap"
+
+#undef SYS
+
+#define DEF 0
+#define NUM 1
+#define SYS 2
+
+ZMK_LAYER(DEF,
+    &kp EQUAL  &kp N1 &kp N2 &kp N3 &kp N4 &kp N5 XXX                               XXX &kp N6 &kp N7 &kp N8 &kp N9 &kp N0 &kp MINUS
+    &kp TAB    WIN_DEF_LT  &tog NUM                               XXX WIN_DEF_RT  &kp BSLH
+    &kp ESC    WIN_DEF_LM &tog SYS XXX XXX  XXX XXX     XXX WIN_DEF_RM &kp SQT
+    XXX         WIN_DEF_LB     XXX                                       XXX  WIN_DEF_RB XXX
+    XXX &kp GRAVE XXX NAV_LEFT NAV_RIGHT   BSPC_MORPH  WIN_DEL_MORPH XXX                XXX &kp ENTER  &kp SPACE          NAV_UP             NAV_DOWN     &kp LBKT         &kp RBKT XXX
+)
+
+ZMK_LAYER(NUM,
+    XXX &kp F1  &kp F2  &kp F3  &kp F4  &kp F5  &kp F6                                      &kp F7  &kp F8  &kp F9  &kp F10  &kp F11  &kp F12 XXX
+    XXX XXX XXX XXX XXX XXX  ___                                       XXX   XXX  XXX  XXX  XXX   XXX   XXX
+    XXX XXX XXX XXX XXX XXX  ___   XXX  XXX      XXX  XXX  XXX   XXX  XXX  XXX  XXX   XXX   XXX
+    XXX XXX XXX XXX XXX XXX                  XXX      XXX                  XXX  XXX  XXX  XXX   XXX   XXX
+    XXX  XXX  XXX  XXX  XXX          XXX  XXX  XXX      XXX  XXX  XXX          XXX  XXX  XXX   XXX   XXX
+)
+
+ZMK_LAYER(SYS,
+    XXX XXX XXX XXX XXX XXX XXX                                         XXX XXX XXX XXX XXX XXX XXX
+    XXX &bootloader &studio_unlock XXX _RGB_TOG_ _RGB_EFF_ ___ XXX      XXX XXX XXX &studio_unlock &bootloader XXX
+    XXX SYS_LM ___ XXX XXX                                  XXX XXX XXX SYS_RM XXX
+    XXX &sys_reset XXX XXX _BL_STEP_ _BL_TOG_ XXX                      XXX XXX XXX XXX XXX &sys_reset XXX
+    XXX XXX XXX XXX XXX XXX XXX XXX                            XXX XXX XXX XXX XXX XXX XXX XXX
+)
