@@ -5,6 +5,8 @@
 modules
 firmware
 zephyr
+!hardware/cheapino/zephyr/
+!hardware/cheapino/zephyr/module.yml
 zmk
 draw/base.yaml
 ergonautkb-zmk-module
