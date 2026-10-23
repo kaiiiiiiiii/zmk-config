@@ -12,9 +12,9 @@ manifest:
   projects:
     - name: zmk
       remote: zmkfirmware
-      # Upstream ZMK main as of 2026-08-14. Pin this so clean builds are
+      # Upstream ZMK main as of 2026-10-23. Pin this so clean builds are
       # reproducible; advance it deliberately when upgrading ZMK.
-      revision: 6e2ef41e022d555b10f116e395832913f71717b3
+      revision: 4dd95d7840eb3d5a3f59bb29fbf1ab054715ef85
       import: app/west.yml
     # ZMK modules
     - name: zmk-helpers
