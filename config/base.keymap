@@ -118,9 +118,9 @@ MASK_MODS(masked_end,  (MOD_LCTL), &kp END)
   ZMK_MOD_MORPH(NAME, mods = <(MOD_L##MOD | MOD_R##MOD)>;                      \
                 bindings = <BINDING1>, <BINDING2>;)
 
-// tap: ? | shift + tap: / | ctrl + shift + tap: BACKSLASH
-SIMPLE_MORPH(qmark_morph, SFT, &kp QMARK, &qmark_inner_morph)
-SIMPLE_MORPH(qmark_inner_morph, CTL, &kp FSLH, &kp BSLH)
+// tap: / | shift + tap: ? | ctrl + shift + tap: BACKSLASH
+SIMPLE_MORPH(qmark_morph, SFT, &kp FSLH, &qmark_inner_morph)
+SIMPLE_MORPH(qmark_inner_morph, CTL, &kp QMARK, &kp BSLH)
 
 // tap: " | shift + tap: ' | ctrl + shift + tap: `
 SIMPLE_MORPH(quote_morph, SFT, &kp DQT, &quote_inner_morph)

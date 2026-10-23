@@ -30,7 +30,7 @@ layers:
   - M
   - {t: ',', s: <}
   - {t: ., h: Dot Space}
-  - {t: '?', s: /}
+  - {t: /, s: '?'}
   - {t: Esc, h: NAV (Win)}
   - {t: Bspc, h: Ctl+Bspc}
   - {t: Del, h: Ctl+Del}
@@ -67,7 +67,7 @@ layers:
   - M
   - {t: ',', s: <}
   - {t: ., h: Dot Space}
-  - {t: '?', s: /}
+  - {t: /, s: '?'}
   - {t: Esc, h: NAV (Mac)}
   - {t: Bspc, h: Alt+Bspc}
   - {t: Del, h: Alt+Del}
